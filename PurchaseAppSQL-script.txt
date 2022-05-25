@@ -1,0 +1,44 @@
+-- create database and table for assignment 2
+--
+CREATE DATABASE COVIDTESTDB;
+USE COVIDTESTDB;
+
+CREATE TABLE PATIENT
+(
+	PATIENTID INT NOT NULL,
+	FIRSTNAME VARCHAR (30) NOT NULL,
+	LASTNAME VARCHAR (30) NOT NULL,
+	PHONE VARCHAR (20) NOT NULL,
+	DOB DATE NOT NULL,
+	GENDER VARCHAR(1) NOT NULL,
+	PRIMARY KEY(PATIENTID)	
+);
+
+INSERT INTO PATIENT (PATIENTID,FIRSTNAME,LASTNAME,PHONE,DOB,GENDER) VALUES
+	(1,'John','Smith','0422731711','1988-05-12','M'),
+	(2,'Kate','Sydney','0455019234','1970-04-19','F'),
+	(3,'Kate', 'Gladstone','0419234090','1991-09-11','F'),
+	(4,'Tony','Lemmon','0419000541','1995-11-23','M');
+  
+CREATE TABLE VIRUSTEST
+(
+	TESTID INT NOT NULL AUTO_INCREMENT,
+	METHOD VARCHAR (3) NOT NULL,
+	TESTDATE DATE NOT NULL,
+	RESULT VARCHAR (1) NOT NULL,
+	PatientID INT,
+	PRIMARY KEY(TESTID),
+	Foreign Key (PATIENTID) REFERENCES PATIENT(PATIENTID)
+);
+
+INSERT INTO VIRUSTEST (Method,TestDate,Result,PatientID) VALUES
+	('PCR','2021-06-09','P',1),
+	('RAT','2022-02-09','N',1),
+	('RAT','2022-03-09','P',2),
+	('PCR','2022-01-01','P',2),
+	('PCR','2022-03-19','N',1),
+	('RAT','2022-03-25','N',3);
+	
+-- Note:(1)PatientID could be assinged as AUTO_INCREMENT. If the java code could be complicated;
+   --      I leave this option for your decision. if you want to implement with more challenging,
+      --  you can select PiatientID with Auto_increment.
