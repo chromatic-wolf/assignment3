@@ -13,13 +13,13 @@ public class ServiceBooking {
     
     private int bookingNumber;
     private String vehicleType;
-    private String registration;
+    private String vehicleRegistration;
     
-    public ServiceBooking( int BN, String vehichleType, String registration )
+    public ServiceBooking( int BN, String vehichleType, String VR )
     {
         setBookingNumber( BN );
         setVehicleType( vehicleType );
-        setRegistration( registration );
+        setVehicleRegistration( VR );
     }
 
     public int getBookingNumber() {
@@ -38,13 +38,12 @@ public class ServiceBooking {
         this.vehicleType = vehicleType;
     }
 
-    public String getRegistration() {
-        return registration;
+    public String getVehicleRegistration() {
+        return vehicleRegistration;
     }
 
-    public void setRegistration(String registration) {
-        this.registration = registration;
+    public void setVehicleRegistration(String vehicleRegistration) {
+        this.vehicleRegistration = vehicleRegistration;
     }
-    
     
 }

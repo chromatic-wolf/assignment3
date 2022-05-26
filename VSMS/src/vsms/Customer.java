@@ -14,11 +14,11 @@ public class Customer {
     private int customerID;
     private String address;
     private String phone;
-    private int vehicleRegistration;
+    private String vehicleRegistration;
     private int bookingNumber;
 
     public Customer(int ID, String address, String phone, 
-            int VR, int BN) 
+            String VR, int BN) 
     {
         setCustomerID( ID );
         setAddress( address );
@@ -51,11 +51,11 @@ public class Customer {
         this.phone = phone;
     }
 
-    public int getVehicleRegistration() {
+    public String getVehicleRegistration() {
         return vehicleRegistration;
     }
 
-    public void setVehicleRegistration(int vehicleRegistration) {
+    public void setVehicleRegistration(String vehicleRegistration) {
         this.vehicleRegistration = vehicleRegistration;
     }
 
