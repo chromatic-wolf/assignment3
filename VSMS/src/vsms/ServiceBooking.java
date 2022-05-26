@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vsms;
 
 /**
@@ -10,16 +5,15 @@ package vsms;
  * @author Lenovo
  */
 public class ServiceBooking {
-    
+
     private int bookingNumber;
     private String vehicleType;
     private String vehicleRegistration;
-    
-    public ServiceBooking( int BN, String vehichleType, String VR )
-    {
-        setBookingNumber( BN );
-        setVehicleType( vehicleType );
-        setVehicleRegistration( VR );
+
+    public ServiceBooking(int BN, String vehichleType, String VR) {
+        setBookingNumber(BN);
+        setVehicleType(vehicleType);
+        setVehicleRegistration(VR);
     }
 
     public int getBookingNumber() {
@@ -45,5 +39,5 @@ public class ServiceBooking {
     public void setVehicleRegistration(String vehicleRegistration) {
         this.vehicleRegistration = vehicleRegistration;
     }
-    
+
 }

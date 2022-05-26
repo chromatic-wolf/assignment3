@@ -10,21 +10,20 @@ package vsms;
  * @author Lenovo
  */
 public class Customer {
-    
+
     private int customerID;
     private String address;
     private String phone;
     private String vehicleRegistration;
     private int bookingNumber;
 
-    public Customer(int ID, String address, String phone, 
-            String VR, int BN) 
-    {
-        setCustomerID( ID );
-        setAddress( address );
-        setPhone( phone );
-        setVehicleRegistration( VR );
-        setBookingNumber( BN );
+    public Customer(int ID, String address, String phone,
+            String VR, int BN) {
+        setCustomerID(ID);
+        setAddress(address);
+        setPhone(phone);
+        setVehicleRegistration(VR);
+        setBookingNumber(BN);
     }
 
     public int getCustomerID() {
