@@ -24,7 +24,7 @@ public class Customer {
         setAddress( address );
         setPhone( phone );
         setVehicleRegistration( VR );
-        SetBookingNumber( BN );
+        setBookingNumber( BN );
     }
 
     public int getCustomerID() {
