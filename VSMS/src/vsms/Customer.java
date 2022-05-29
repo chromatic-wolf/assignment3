@@ -17,8 +17,7 @@ public class Customer {
     private String vehicleRegistration;
     private int bookingNumber;
 
-    public Customer(int ID, String address, String phone,
-            String VR, int BN) {
+    public Customer(int ID, String address, String phone, String VR, int BN) {
         setCustomerID(ID);
         setAddress(address);
         setPhone(phone);
