@@ -20,7 +20,7 @@ public class DataBaseManager {
     boolean connect(String ipAddr, String user, String password, String dataBaseName) {
         try {
             //Maybe use the DriverManager.getDriver function to automatically get the driver to make this class more portable
-            connection = DriverManager.getConnection("jdbc:mysql://" + ipAddr + dataBaseName, user, password);
+            connection = DriverManager.getConnection("jdbc:mysql://" + ipAddr + "/" + dataBaseName, user, password);
 
             return true;
 
