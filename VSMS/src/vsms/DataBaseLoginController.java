@@ -22,12 +22,15 @@ import javax.swing.JOptionPane;
 public class DataBaseLoginController implements Initializable {
 
     //This binds the java code to the ui and initalises the UI components
+    //Make sure the names of the variablees here match exactly to the fx:id in the fxml file
     @FXML
     Button ui_connect_btn;
     @FXML
     TextField ui_address_txt;
     @FXML
     TextField ui_password_txt;
+    @FXML
+    TextField ui_username_txt;
 
     //This runs when the window first opens so putting any event listeners here
     @Override
