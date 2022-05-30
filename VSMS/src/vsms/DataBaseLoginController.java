@@ -24,7 +24,9 @@ public class DataBaseLoginController implements Initializable {
     //This binds the java code to the ui and initalises the UI components
     @FXML
     Button ui_connect_btn;
+    @FXML
     TextField ui_address_txt;
+    @FXML
     TextField ui_password_txt;
 
     //This runs when the window first opens so putting any event listeners here
