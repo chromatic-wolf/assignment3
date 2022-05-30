@@ -48,7 +48,7 @@ public class DataBaseLoginController implements Initializable {
                 //failed to connect
                 //display error message
                 JOptionPane.showMessageDialog(null, "Error cannot connect", "InfoBox: " + "Error", JOptionPane.ERROR_MESSAGE);
-
+                
             }
         });
     }
