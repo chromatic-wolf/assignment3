@@ -64,7 +64,7 @@ public class DataBaseLoginController implements Initializable {
                             new Scene(loader.load())
                     );
 
-                    DataBaseLoginController controller = loader.getController();
+                    MainWindowController controller = loader.getController();
                     controller.initData(database);
                     stage.show();
 
