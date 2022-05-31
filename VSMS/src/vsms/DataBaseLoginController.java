@@ -5,13 +5,21 @@
  */
 package vsms;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javax.swing.JOptionPane;
 
 /**
@@ -44,11 +52,35 @@ public class DataBaseLoginController implements Initializable {
             if (database.connect(ui_address_txt.getText(), ui_username_txt.getText(), ui_password_txt.getText(), "purchase")) {
                 //Database connect
                 //Open next window
+                try {
+                    FXMLLoader loader = new FXMLLoader(
+                            getClass().getResource(
+                                    "MainWindow.fxml"
+                            )
+                    );
+
+                    Stage stage = new Stage(StageStyle.DECORATED);
+                    stage.setScene(
+                            new Scene(loader.load())
+                    );
+
+                    DataBaseLoginController controller = loader.getController();
+                    controller.initData(database);
+                    stage.show();
+
+                    Stage rootStage = (Stage) ui_username_txt.getScene().getWindow();
+                    // do what you have to do
+                    rootStage.close();
+
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null, "FATAL Error, please check your java install", "InfoBox: " + "Error", JOptionPane.ERROR_MESSAGE);
+                    System.out.println(ex);
+                }
             } else {
                 //failed to connect
                 //display error message
                 JOptionPane.showMessageDialog(null, "Error cannot connect", "InfoBox: " + "Error", JOptionPane.ERROR_MESSAGE);
-                
+
             }
         });
     }
