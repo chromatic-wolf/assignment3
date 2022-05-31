@@ -20,9 +20,13 @@ public class MainWindowController implements Initializable {
     Button ui_vehicle_management_btn;
     @FXML
     Button ui_service_management_btn;
-
-    @FXML
-
+    DataBaseManager database;
+    
+    public void initData(DataBaseManager database)
+    {
+        this.database = database;
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //There are 3 main windows which will allow you to basically view the contents of a table in the database.
