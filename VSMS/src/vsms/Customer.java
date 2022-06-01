@@ -14,6 +14,7 @@ public class Customer {
     private int customerID;
     private String address;
     private String phone;
+    //Having a single vehicle registration might not work customers can have multiple vehicles
     private String vehicleRegistration;
     private int bookingNumber;
 
