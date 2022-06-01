@@ -18,11 +18,11 @@ public class Customer {
     private int bookingNumber;
 
     public Customer(int ID, String address, String phone, String VR, int BN) {
-        setCustomerID(ID);
-        setAddress(address);
-        setPhone(phone);
-        setVehicleRegistration(VR);
-        setBookingNumber(BN);
+        this.customerID = ID;
+        this.address = address;
+        this.phone = phone;
+        this.vehicleRegistration = VR;
+        this.bookingNumber = BN;
     }
 
     public int getCustomerID() {
