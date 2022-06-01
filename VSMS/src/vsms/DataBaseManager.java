@@ -81,4 +81,8 @@ public class DataBaseManager {
         query.setDate(index, date);
     }
 
+    Connection getConnectionObject ()
+    {
+        return this.connection;
+    }
 }
