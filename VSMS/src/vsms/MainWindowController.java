@@ -1,6 +1,7 @@
 package vsms;
 
 import java.net.URL;
+import java.sql.Connection;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,11 +21,11 @@ public class MainWindowController implements Initializable {
     Button ui_vehicle_management_btn;
     @FXML
     Button ui_service_management_btn;
-    DataBaseManager database;
+    Connection database;
     
     public void initData(DataBaseManager database)
     {
-        this.database = database;
+        this.database = database.getConnectionObject();
     }
     
     @Override
