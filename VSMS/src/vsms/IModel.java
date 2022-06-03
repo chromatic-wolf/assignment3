@@ -9,14 +9,26 @@ import java.util.List;
 public interface IModel {
 
     public List<Customer> getAllCustomers();
+    public List<Customer> getCustomersByAddress(String address);
+    public List<Customer> getCustomersByPhone(String phone);
+    public List<Vehicle> getAllVehicles();
+
+    public void addVehicle();
+    public void updateVehicle();
+    public void deleteVehicle();
+
+    public void addCustomer();
+    public void updateCustomer();
+    public void deleteCustomer();
+
+    public void addServiceBooking();
+    public void updateServiceBooking();
+    public void deleteServiceBooking();
+
 
     public List<ServiceBooking> getAllServiceBookings();
+    public List<ServiceBooking> getServiceBookingByVR();
 
-    public List<ServiceBooking> getSerivceBookingByVR();
-
-    public int ServiceBooking(int BN, String vehichleType, String VR);
-
-    public int Customer(int ID, String address, String phone, String VR, int BN);
 
     public void close();
 
