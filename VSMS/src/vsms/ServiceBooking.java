@@ -7,14 +7,7 @@ package vsms;
 public class ServiceBooking {
 
     private int bookingNumber;
-    private String vehicleType;
-    private String vehicleRegistration;
-
-    public ServiceBooking(int BN, String vehichleType, String VR) {
-        this.bookingNumber = BN;
-        this.vehicleType = vehichleType;
-        this.vehicleRegistration = VR;
-    }
+    private Vehicle vehicle;
 
     public int getBookingNumber() {
         return bookingNumber;
@@ -24,20 +17,28 @@ public class ServiceBooking {
         this.bookingNumber = bookingNumber;
     }
 
-    public String getVehicleType() {
-        return vehicleType;
+    public Vehicle getVehicle() {
+        return vehicle;
     }
 
-    public void setVehicleType(String vehicleType) {
-        this.vehicleType = vehicleType;
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
 
-    public String getVehicleRegistration() {
-        return vehicleRegistration;
+    @Override
+    public String toString() {
+        return "ServiceBooking{" +
+                "bookingNumber=" + bookingNumber +
+                ", vehicle=" + vehicle +
+                '}';
     }
 
-    public void setVehicleRegistration(String vehicleRegistration) {
-        this.vehicleRegistration = vehicleRegistration;
+    public ServiceBooking(int bookingNumber, Vehicle vehicle) {
+        this.bookingNumber = bookingNumber;
+        this.vehicle = vehicle;
+
+
     }
+
 
 }
