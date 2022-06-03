@@ -1,5 +1,7 @@
 package vsms;
 
+import java.sql.Date;
+
 /**
  *
  * @author Lenovo
@@ -7,7 +9,10 @@ package vsms;
 public class ServiceBooking {
 
     private int bookingNumber;
-    private Vehicle vehicle;
+    private String rego;
+    private int price;
+    private String serviceDescription;
+    private Date serviceDate;
 
     public int getBookingNumber() {
         return bookingNumber;
@@ -17,28 +22,43 @@ public class ServiceBooking {
         this.bookingNumber = bookingNumber;
     }
 
-    public Vehicle getVehicle() {
-        return vehicle;
+    public String getRego() {
+        return rego;
     }
 
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
+    public void setRego(String rego) {
+        this.rego = rego;
     }
 
-    @Override
-    public String toString() {
-        return "ServiceBooking{" +
-                "bookingNumber=" + bookingNumber +
-                ", vehicle=" + vehicle +
-                '}';
+    public int getPrice() {
+        return price;
     }
 
-    public ServiceBooking(int bookingNumber, Vehicle vehicle) {
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public String getServiceDescription() {
+        return serviceDescription;
+    }
+
+    public void setServiceDescription(String serviceDescription) {
+        this.serviceDescription = serviceDescription;
+    }
+
+    public Date getServiceDate() {
+        return serviceDate;
+    }
+
+    public void setServiceDate(Date serviceDate) {
+        this.serviceDate = serviceDate;
+    }
+
+    public ServiceBooking(int bookingNumber, String rego, int price, String serviceDescription, Date serviceDate) {
         this.bookingNumber = bookingNumber;
-        this.vehicle = vehicle;
-
-
+        this.rego = rego;
+        this.price = price;
+        this.serviceDescription = serviceDescription;
+        this.serviceDate = serviceDate;
     }
-
-
 }

@@ -22,8 +22,7 @@ public class Customer {
         this.customerID = ID;
         this.address = address;
         this.phone = phone;
-        this.vehicleRegistration = VR;
-        this.bookingNumber = BN;
+
     }
 
     public int getCustomerID() {
@@ -50,20 +49,5 @@ public class Customer {
         this.phone = phone;
     }
 
-    public String getVehicleRegistration() {
-        return vehicleRegistration;
-    }
-
-    public void setVehicleRegistration(String vehicleRegistration) {
-        this.vehicleRegistration = vehicleRegistration;
-    }
-
-    public int getBookingNumber() {
-        return bookingNumber;
-    }
-
-    public void setBookingNumber(int bookingNumber) {
-        this.bookingNumber = bookingNumber;
-    }
 
 }

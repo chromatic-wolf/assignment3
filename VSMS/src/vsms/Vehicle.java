@@ -3,20 +3,28 @@ package vsms;
 import java.sql.Date;
 
 public class Vehicle {
+    private int customerid;
+    private String rego;
+    private String make;
+    private String model;
+    private Date manufactureYear;
+    private int odometer;
 
-    String rego;
-    String make;
-    String model;
-    Date manufactureYear;
-    int odometer;
-
-
-    public Vehicle(String rego, String make, String model, Date manufactureYear, int odometer) {
+    public Vehicle(int customerid, String rego, String make, String model, Date manufactureYear, int odometer) {
+        this.customerid = customerid;
         this.rego = rego;
         this.make = make;
         this.model = model;
         this.manufactureYear = manufactureYear;
         this.odometer = odometer;
+    }
+
+    public int getCustomerid() {
+        return customerid;
+    }
+
+    public void setCustomerid(int customerid) {
+        this.customerid = customerid;
     }
 
     public String getRego() {
@@ -58,6 +66,8 @@ public class Vehicle {
     public void setOdometer(int odometer) {
         this.odometer = odometer;
     }
+
+
 
 
 
