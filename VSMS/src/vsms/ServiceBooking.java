@@ -11,9 +11,9 @@ public class ServiceBooking {
     private String vehicleRegistration;
 
     public ServiceBooking(int BN, String vehichleType, String VR) {
-        setBookingNumber(BN);
-        setVehicleType(vehicleType);
-        setVehicleRegistration(VR);
+        this.bookingNumber = BN;
+        this.vehicleType = vehichleType;
+        this.vehicleRegistration = VR;
     }
 
     public int getBookingNumber() {
