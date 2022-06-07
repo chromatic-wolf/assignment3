@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -16,13 +17,15 @@ import javafx.scene.control.Button;
 public class MainWindowController implements Initializable {
 
     @FXML
-    Button ui_customer_management_btn;
+    TextField ui_first_name_field;
     @FXML
-    Button ui_vehicle_management_btn;
+    TextField ui_last_name_field;
     @FXML
-    Button ui_service_management_btn;
+    TextField ui_address_field;
+    @FXML
+    TextField ui_phone_field;
     Connection database;
-    
+
     public void initData(DataBaseManager database)
     {
         this.database = database.getConnectionObject();
