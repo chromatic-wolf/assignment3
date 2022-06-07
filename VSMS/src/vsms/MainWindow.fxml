@@ -18,7 +18,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="280.0" prefWidth="994.0" style="-fx-background-color: #bfbdb8;">
                      <children>
-                        <TableView layoutX="471.0" layoutY="119.0" prefHeight="334.0" prefWidth="583.0">
+                        <TableView fx:id="ui_table" layoutX="471.0" layoutY="119.0" prefHeight="334.0" prefWidth="583.0">
                           <columns>
                             <TableColumn prefWidth="75.0" text="C1" />
                             <TableColumn prefWidth="75.0" text="C2" />
