@@ -24,16 +24,16 @@ public class MainWindowController implements Initializable {
     TextField ui_address_field;
     @FXML
     TextField ui_phone_field;
+    @FXML
+    Button ui_search_btn;
     Connection database;
 
-    public void initData(DataBaseManager database)
-    {
+    public void initData(DataBaseManager database) {
         this.database = database.getConnectionObject();
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
 
     }
 
