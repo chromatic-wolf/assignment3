@@ -34,7 +34,9 @@ public class MainWindowController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        ui_search_btn.setOnAction((ActionEvent e) -> {
+            //Call search function/ search logic here
+        });
     }
 
 }
