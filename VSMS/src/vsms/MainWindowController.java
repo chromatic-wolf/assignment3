@@ -39,6 +39,10 @@ public class MainWindowController implements Initializable {
         ui_search_btn.setOnAction((ActionEvent e) -> {
             //Call search function/ search logic here
         });
+        
+        ui_add_cust_btn.setOnAction((ActionEvent e) -> {
+            //Call insert function/ insert logic here
+        });
     }
 
 }
