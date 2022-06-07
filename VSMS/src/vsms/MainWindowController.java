@@ -50,7 +50,10 @@ public class MainWindowController implements Initializable {
     ObservableList<Customer> list = FXCollections.observableArrayList();
 
     public void initData(DataBaseManager database) {
+        //Grab pure connection object from database manager
         this.database = database.getConnectionObject();
+        //Set table to watch the list of customers
+        ui_table.setItems(list);
     }
 
     @Override
@@ -60,31 +63,27 @@ public class MainWindowController implements Initializable {
 
             String sql = "SELECT * FROM purchase.customers WHERE CUSTOMERID LIKE NULL OR FIRSTNAME LIKE ? AND LASTNAME LIKE ? AND ADDRESS LIKE ? AND PHONE LIKE ?;";
             try {
+                //create statement 
                 PreparedStatement searchCustomer = database.prepareStatement(sql);
 
+                //set variables
                 searchCustomer.setString(1, ui_first_name_field.getText() + '%');
                 searchCustomer.setString(2, ui_last_name_field.getText() + '%');
                 searchCustomer.setString(3, ui_address_field.getText() + '%');
                 searchCustomer.setString(4, ui_phone_field.getText() + '%');
-
+                //execute and grab result
                 ResultSet rs = searchCustomer.executeQuery();
-                int index = 1;
+                //Clear table
                 list.clear();
+                //Loop through returned results
                 while (rs.next()) {
-                    /*
-                if (rs.getString(1).compareToIgnoreCase("Test") == 0) {
-                   
-                }
-                     */
+                    //add found customer to list
                     list.add(new Customer(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
-
-                    index++;
-
                 }
+                //Debug print all infor on customers
                 for (int i = 0; i < list.size(); i++) {
                     list.get(i).printAll();
                 }
-                //ui_table.setItems(list);
 
             } catch (SQLException ex) {
                 System.out.println(ex);
