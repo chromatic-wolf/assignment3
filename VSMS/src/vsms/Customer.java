@@ -12,14 +12,18 @@ package vsms;
 public class Customer {
 
     private int customerID;
+    private String firstName;
+    private String lastName;
     private String address;
     private String phone;
     //Having a single vehicle registration might not work customers can have multiple vehicles
     private String vehicleRegistration;
     private int bookingNumber;
 
-    public Customer(int ID, String address, String phone, String VR, int BN) {
+    public Customer(int ID, String firstName, String lastName, String address, String phone) {
         this.customerID = ID;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.address = address;
         this.phone = phone;
 
@@ -47,6 +51,16 @@ public class Customer {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+    
+    //debug function to dump info to terminal
+    public void printAll()
+    {
+        System.out.println("----------Customer------------");
+        System.out.println("First:  " + firstName);
+        System.out.println("Last:  " + lastName);
+        System.out.println("Address:  " + address);
+        System.out.println("Phone:  " + phone);
     }
 
 
