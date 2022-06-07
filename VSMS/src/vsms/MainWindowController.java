@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
@@ -36,6 +37,14 @@ public class MainWindowController implements Initializable {
     Button ui_add_cust_btn;
     @FXML
     TableView ui_table;
+    @FXML
+    TableColumn ui_firstName_column;
+    @FXML
+    TableColumn ui_lastName_column;
+    @FXML
+    TableColumn ui_address_column;
+    @FXML
+    TableColumn ui_phoneNum_column;
 
     Connection database;
     ObservableList<Customer> list = FXCollections.observableArrayList();
