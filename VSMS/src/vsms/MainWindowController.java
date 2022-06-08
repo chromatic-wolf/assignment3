@@ -61,7 +61,7 @@ public class MainWindowController implements Initializable {
         ui_search_btn.setOnAction((ActionEvent e) -> {
             //Call search function/ search logic here
 
-            String sql = "SELECT * FROM purchase.customers WHERE CUSTOMERID LIKE NULL OR FIRSTNAME LIKE ? AND LASTNAME LIKE ? AND ADDRESS LIKE ? AND PHONE LIKE ?;";
+            String sql = "SELECT * FROM carservicedb.customers WHERE CUSTOMERID LIKE NULL OR FIRSTNAME LIKE ? AND LASTNAME LIKE ? AND ADDRESS LIKE ? AND PHONE LIKE ?;";
             try {
                 //create statement 
                 PreparedStatement searchCustomer = database.prepareStatement(sql);
