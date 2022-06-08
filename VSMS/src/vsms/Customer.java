@@ -98,9 +98,27 @@ public class Customer {
     public final ObjectProperty<String> phone() {
         return new SimpleObjectProperty<>(this.phone.get());
     }
-    
+
     public boolean compare(Customer obj) {
         if (this.firstName.get() == obj.getLastName() && this.lastName.get() == obj.getLastName() && this.address.get() == obj.getAddress()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        final Customer other = (Customer) obj;
+        if (this.getCustomerID() == other.getCustomerID() && this.getFirstName() == other.getFirstName() && this.getLastName() == other.getLastName() && this.getAddress() == other.getAddress() && this.getPhone() == other.getPhone()) {
             return true;
         } else {
             return false;
