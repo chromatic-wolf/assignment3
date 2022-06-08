@@ -85,12 +85,11 @@ public class MainWindowController implements Initializable {
         return searchCustomer.executeQuery();
 
     }
-    
-    ResultSet searchCurrentEnteredCust() throws SQLException
-    {
+
+    ResultSet searchCurrentEnteredCust() throws SQLException {
         return searchCust(ui_first_name_field.getText(), ui_last_name_field.getText(), ui_address_field.getText(), ui_phone_field.getText());
     }
-   
+
     void updateCustList(ResultSet rs) throws SQLException {
         //Loop through returned results
         while (rs.next()) {
@@ -98,14 +97,11 @@ public class MainWindowController implements Initializable {
             list.add(new Customer(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
         }
     }
-    
-    boolean checkBlankFields()
-    {
-        if(ui_first_name_field.getText() == null || ui_first_name_field.getText().equals("") || ui_last_name_field.getText() == null || ui_last_name_field.getText().equals("") || ui_address_field.getText() == null || ui_address_field.getText().equals("") || ui_phone_field.getText() == null || ui_phone_field.getText().equals(""))
-        {
+
+    boolean checkBlankFields() {
+        if (ui_first_name_field.getText() == null || ui_first_name_field.getText().equals("") || ui_last_name_field.getText() == null || ui_last_name_field.getText().equals("") || ui_address_field.getText() == null || ui_address_field.getText().equals("") || ui_phone_field.getText() == null || ui_phone_field.getText().equals("")) {
             return true;
-        }else
-        {
+        } else {
             return false;
         }
     }
@@ -145,11 +141,9 @@ public class MainWindowController implements Initializable {
         ui_add_cust_btn.setOnAction((ActionEvent e) -> {
             //Call insert function/ insert logic here
             //first check if all info is entered
-            if(checkBlankFields())
-            {
+            if (checkBlankFields()) {
                 JOptionPane.showMessageDialog(null, "Error please enter all fields", "Error: " + "Blank fields", JOptionPane.ERROR_MESSAGE);
-            }else
-            {
+            } else {
                 try {
                     list.clear();
                     ResultSet rs = searchCurrentEnteredCust();
@@ -167,38 +161,34 @@ public class MainWindowController implements Initializable {
 
                     } else {
                         //There is a customer with some matching details
-                    //Check results and see if all details match if all details match do not allow adding customer
-                    //If first and last name match show error but allow 'overide' if some of the other details dont match.
-                    //if only first name or last name match (not both) then add customer
-                    
-                    //Create a dummy customer using info entered
-                    Customer currentCust = new Customer(0, ui_first_name_field.getText(),ui_last_name_field.getText(),ui_address_field.getText(),ui_phone_field.getText());
-                    
-                    
-                         updateCustList(rs);
-                         int i = 0;
-                         while (i < list.size()) {
-                             if (list.get(i).compare(currentCust)) {
-                                 JOptionPane.showMessageDialog(null, "Error Customer already exists, see table of custs.", "Error: " + "Duplicate cust", JOptionPane.ERROR_MESSAGE);
+                        //Check results and see if all details match if all details match do not allow adding customer
+                        //If first and last name match show error but allow 'overide' if some of the other details dont match.
+                        //if only first name or last name match (not both) then add customer
 
-                             } else if (list.get(i).getCustomerID() == currentCust.getCustomerID()) {
-                                 JOptionPane.showMessageDialog(null, "Error Customer ID already exists", "Error: " + "Duplicate cust", JOptionPane.ERROR_MESSAGE);
+                        //Create a dummy customer using info entered
+                        Customer currentCust = new Customer(0, ui_first_name_field.getText(), ui_last_name_field.getText(), ui_address_field.getText(), ui_phone_field.getText());
 
-                             }else if(currentCust.getFirstName().equals(list.get(i).getFirstName()) && currentCust.getLastName().equals(list.get(i).getLastName()))
-                             {
-                                 //First and last name exists display message box asking if customer still wants to add (overide)
-                             }
-                             i++;
-                         }
-                     }
+                        updateCustList(rs);
+                        int i = 0;
+                        while (i < list.size()) {
+                            if (list.get(i).compare(currentCust)) {
+                                JOptionPane.showMessageDialog(null, "Error Customer already exists, see table of custs.", "Error: " + "Duplicate cust", JOptionPane.ERROR_MESSAGE);
 
+                            } else if (list.get(i).getCustomerID() == currentCust.getCustomerID()) {
+                                JOptionPane.showMessageDialog(null, "Error Customer ID already exists", "Error: " + "Duplicate cust", JOptionPane.ERROR_MESSAGE);
 
-            } catch (SQLException ex) {
-                System.out.println(ex);
+                            } else if (currentCust.getFirstName().equals(list.get(i).getFirstName()) && currentCust.getLastName().equals(list.get(i).getLastName())) {
+                                //First and last name exists display message box asking if customer still wants to add (overide)
+                            }
+                            i++;
+                        }
+                    }
+
+                } catch (SQLException ex) {
+                    System.out.println(ex);
+                }
             }
-            }
-            
-           
+
         });
     }
 
