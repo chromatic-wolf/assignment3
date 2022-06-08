@@ -87,7 +87,9 @@ public class MainWindowController implements Initializable {
                 //Clear table
                 list.clear();
 
+                //check if list is empty
                 if (!rs.isBeforeFirst()) {
+                    //display error if no customers found
                     System.out.println("No Customers Found");
                     JOptionPane.showMessageDialog(null, "Error No Customers found please check cust info", "Error: " + "No customers found", JOptionPane.ERROR_MESSAGE);
                 } else {

@@ -16,6 +16,7 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class Customer {
 
+    //needs to be simpleproperty so table can see changes
     private SimpleIntegerProperty customerID;
     private SimpleStringProperty firstName;
     private SimpleStringProperty lastName;
@@ -34,6 +35,7 @@ public class Customer {
 
     }
 
+    //the usual getters and setters
     public int getCustomerID() {
         return customerID.get();
     }
@@ -75,10 +77,12 @@ public class Customer {
         this.phone = new SimpleStringProperty(phone);
     }
 
-     public final ObjectProperty<Integer> customerID() {
+    public final ObjectProperty<Integer> customerID() {
         return new SimpleObjectProperty<>(this.customerID.get());
     }
 
+    //These functions will return the observable properties, this is needed so the table can bind to them and display
+    //when changes are made.
     public final ObjectProperty<String> firstName() {
         return new SimpleObjectProperty<>(this.firstName.get());
     }
@@ -94,7 +98,6 @@ public class Customer {
     public final ObjectProperty<String> phone() {
         return new SimpleObjectProperty<>(this.phone.get());
     }
-
 
     //debug function to dump info to terminal
     public void printAll() {
