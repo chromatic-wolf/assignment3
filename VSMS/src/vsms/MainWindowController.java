@@ -150,6 +150,11 @@ public class MainWindowController implements Initializable {
                     //Check results and see if all details match if all details match do not allow adding customer
                     //If first and last name match show error but allow 'overide' if some of the other details dont match.
                     //if only first name or last name match (not both) then add customer
+                    updateCustList(rs);
+                    for(Customer E : list)
+                    {
+                        
+                    }
                 }
                    
 
