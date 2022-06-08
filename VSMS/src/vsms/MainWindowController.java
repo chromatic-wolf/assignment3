@@ -57,6 +57,7 @@ public class MainWindowController implements Initializable {
         this.database = database.getConnectionObject();
         //Set table to watch the list of customers
         ui_table.setItems(list);
+        list.clear();
 
         ui_customerid_column.setCellValueFactory(cellData -> cellData.getValue().customerID());
         ui_firstName_column.setCellValueFactory(cellData -> cellData.getValue().firstName());
@@ -85,15 +86,17 @@ public class MainWindowController implements Initializable {
                 ResultSet rs = searchCustomer.executeQuery();
                 //Clear table
                 list.clear();
+
                 if (!rs.isBeforeFirst()) {
                     System.out.println("No Customers Found");
                     JOptionPane.showMessageDialog(null, "Error No Customers found please check cust info", "Error: " + "No customers found", JOptionPane.ERROR_MESSAGE);
-                }
+                } else {
 
-                //Loop through returned results
-                while (rs.next()) {
-                    //add found customer to list
-                    list.add(new Customer(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
+                    //Loop through returned results
+                    while (rs.next()) {
+                        //add found customer to list
+                        list.add(new Customer(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
+                    }
                 }
                 //Debug print all infor on customers
                 for (int i = 0; i < list.size(); i++) {
