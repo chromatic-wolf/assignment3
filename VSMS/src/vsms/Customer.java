@@ -98,6 +98,14 @@ public class Customer {
     public final ObjectProperty<String> phone() {
         return new SimpleObjectProperty<>(this.phone.get());
     }
+    
+    public boolean compare(Customer obj) {
+        if (this.firstName.get() == obj.getLastName() && this.lastName.get() == obj.getLastName() && this.address.get() == obj.getAddress()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     //debug function to dump info to terminal
     public void printAll() {
