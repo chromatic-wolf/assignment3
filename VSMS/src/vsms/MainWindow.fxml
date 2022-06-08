@@ -44,19 +44,17 @@
                           </columns>
                         </TableView>
                         <TextField layoutX="110.0" layoutY="356.0" />
-                        <Label layoutX="66.0" layoutY="360.0" text="Label" />
-                        <TextField layoutX="110.0" layoutY="400.0" />
-                        <Label layoutX="66.0" layoutY="404.0" text="Label" />
-                        <TextField layoutX="110.0" layoutY="441.0" />
-                        <TextField layoutX="110.0" layoutY="478.0" />
-                        <TextField layoutX="110.0" layoutY="517.0" />
-                        <TextField layoutX="110.0" layoutY="559.0" />
-                        <Label layoutX="67.0" layoutY="445.0" text="Label" />
-                        <Label layoutX="66.0" layoutY="482.0" text="Label" />
-                        <Label layoutX="67.0" layoutY="521.0" text="Label" />
-                        <Label layoutX="66.0" layoutY="563.0" text="Label" />
-                        <Button layoutX="68.0" layoutY="623.0" mnemonicParsing="false" text="Search Vehicle" />
-                        <Button layoutX="185.0" layoutY="623.0" mnemonicParsing="false" text="Add Vehicle" />
+                        <Label layoutX="37.0" layoutY="360.0" text="Regustration" />
+                        <TextField layoutX="109.0" layoutY="390.0" />
+                        <Label layoutX="50.0" layoutY="394.0" text="Make" />
+                        <TextField layoutX="108.0" layoutY="424.0" />
+                        <TextField layoutX="109.0" layoutY="457.0" />
+                        <TextField layoutX="108.0" layoutY="492.0" />
+                        <Label layoutX="48.0" layoutY="428.0" text="Model" />
+                        <Label layoutX="53.0" layoutY="461.0" text="Year" />
+                        <Label layoutX="37.0" layoutY="496.0" text="Kilometers" />
+                        <Button layoutX="48.0" layoutY="531.0" mnemonicParsing="false" text="Search Vehicle" />
+                        <Button layoutX="165.0" layoutY="531.0" mnemonicParsing="false" text="Add Vehicle" />
                      </children></AnchorPane>
             </content>
           </Tab>
