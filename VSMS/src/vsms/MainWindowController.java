@@ -101,7 +101,7 @@ public class MainWindowController implements Initializable {
     
     boolean checkBlankFields()
     {
-        if(ui_first_name_field.getText() == null || ui_first_name_field.getText() == "" || ui_lastName_column.getText() == null || ui_lastName_column.getText() == "" || ui_address_column.getText() == null || ui_address_column.getText() == "" || ui_phoneNum_column.getText() == null || ui_phoneNum_column.getText() == "")
+        if(ui_first_name_field.getText() == null || ui_first_name_field.getText().equals("") || ui_last_name_field.getText() == null || ui_last_name_field.getText().equals("") || ui_address_field.getText() == null || ui_address_field.getText().equals("") || ui_phone_field.getText() == null || ui_phone_field.getText().equals(""))
         {
             return true;
         }else
@@ -150,37 +150,47 @@ public class MainWindowController implements Initializable {
                 JOptionPane.showMessageDialog(null, "Error please enter all fields", "Error: " + "Blank fields", JOptionPane.ERROR_MESSAGE);
             }else
             {
-                 try {
-                ResultSet rs = searchCurrentEnteredCust();
-                if (!rs.isBeforeFirst()) {
-                    //customer doesnt exist
-                    String sql = "INSERT INTO CUSTOMERS (FIRSTNAME,LASTNAME, ADDRESS,PHONE) VALUES (?,?,?,?);";
+                try {
+                    list.clear();
+                    ResultSet rs = searchCurrentEnteredCust();
+                    if (!rs.isBeforeFirst()) {
+                        //customer doesnt exist
+                        String sql = "INSERT INTO CUSTOMERS (FIRSTNAME,LASTNAME, ADDRESS,PHONE) VALUES (?,?,?,?);";
 
-                    PreparedStatement addCust = database.prepareStatement(sql);
-                    addCust.setString(1, ui_first_name_field.getText());
-                    addCust.setString(2, ui_lastName_column.getText());
-                    addCust.setString(3, ui_address_column.getText());
-                    addCust.setString(4, ui_phoneNum_column.getText());
-                    addCust.executeQuery();
-                }else{
-                    //There is a customer with some matching details
+                        PreparedStatement addCust = database.prepareStatement(sql);
+                        addCust.setString(1, ui_first_name_field.getText());
+                        addCust.setString(2, ui_last_name_field.getText());
+                        addCust.setString(3, ui_address_field.getText());
+                        addCust.setString(4, ui_phone_field.getText());
+                        addCust.executeQuery();
+                        JOptionPane.showMessageDialog(null, "Added customer", "Added: " + "OK", JOptionPane.INFORMATION_MESSAGE);
+
+                    } else {
+                        //There is a customer with some matching details
                     //Check results and see if all details match if all details match do not allow adding customer
                     //If first and last name match show error but allow 'overide' if some of the other details dont match.
                     //if only first name or last name match (not both) then add customer
                     
                     //Create a dummy customer using info entered
-                    Customer currentCust = new Customer(0, ui_first_name_field.getText(),ui_lastName_column.getText(),ui_address_column.getText(),ui_phoneNum_column.getText());
+                    Customer currentCust = new Customer(0, ui_first_name_field.getText(),ui_last_name_field.getText(),ui_address_field.getText(),ui_phone_field.getText());
                     
-                    updateCustList(rs);
-                    for(Customer E : list)
-                    {
-                        if(E.compare(E))
-                        {
-                            
-                        }
-                    }
-                }
-                   
+                    
+                         updateCustList(rs);
+                         int i = 0;
+                         while (i < list.size()) {
+                             if (list.get(i).compare(currentCust)) {
+                                 JOptionPane.showMessageDialog(null, "Error Customer already exists, see table of custs.", "Error: " + "Duplicate cust", JOptionPane.ERROR_MESSAGE);
+
+                             } else if (list.get(i).getCustomerID() == currentCust.getCustomerID()) {
+                                 JOptionPane.showMessageDialog(null, "Error Customer ID already exists", "Error: " + "Duplicate cust", JOptionPane.ERROR_MESSAGE);
+
+                             }else if(currentCust.getFirstName().equals(list.get(i).getFirstName()) && currentCust.getLastName().equals(list.get(i).getLastName()))
+                             {
+                                 //First and last name exists display message box asking if customer still wants to add (overide)
+                             }
+                             i++;
+                         }
+                     }
 
 
             } catch (SQLException ex) {

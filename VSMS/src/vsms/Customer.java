@@ -100,7 +100,7 @@ public class Customer {
     }
 
     public boolean compare(Customer obj) {
-        if (this.firstName.get() == obj.getLastName() && this.lastName.get() == obj.getLastName() && this.address.get() == obj.getAddress()) {
+        if (this.getFirstName().equals(obj.getFirstName()) && this.getLastName().equals(obj.getLastName()) && this.getAddress().equals(obj.getAddress()) && this.getPhone().equals(obj.getPhone())) {
             return true;
         } else {
             return false;
@@ -118,7 +118,7 @@ public class Customer {
         }
 
         final Customer other = (Customer) obj;
-        if (this.getCustomerID() == other.getCustomerID() && this.getFirstName() == other.getFirstName() && this.getLastName() == other.getLastName() && this.getAddress() == other.getAddress() && this.getPhone() == other.getPhone()) {
+        if (this.getCustomerID() == other.getCustomerID() && this.getFirstName().equals(other.getFirstName()) && this.getLastName().equals(other.getLastName()) && this.getAddress().equals(other.getAddress()) && this.getPhone().equals(other.getPhone())) {
             return true;
         } else {
             return false;
