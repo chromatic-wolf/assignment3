@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -68,23 +70,44 @@ public class MainWindowController implements Initializable {
 
     }
 
+    ResultSet searchCust(String firstName, String lastName, String address, String phone) throws SQLException {
+        String sql = "SELECT * FROM carservicedb.customers WHERE CUSTOMERID LIKE NULL OR FIRSTNAME LIKE ? AND LASTNAME LIKE ? AND ADDRESS LIKE ? AND PHONE LIKE ?;";
+
+        //create statement 
+        PreparedStatement searchCustomer = database.prepareStatement(sql);
+
+        //set variables
+        searchCustomer.setString(1, firstName + '%');
+        searchCustomer.setString(2, lastName + '%');
+        searchCustomer.setString(3, address + '%');
+        searchCustomer.setString(4, phone + '%');
+        //execute and grab result
+        return searchCustomer.executeQuery();
+
+    }
+    
+    ResultSet searchCurrentEnteredCust() throws SQLException
+    {
+        return searchCust(ui_first_name_field.getText(), ui_last_name_field.getText(), ui_address_field.getText(), ui_phone_field.getText());
+    }
+   
+    void updateCustList(ResultSet rs) throws SQLException {
+        //Loop through returned results
+        while (rs.next()) {
+            //add found customer to list
+            list.add(new Customer(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ui_search_btn.setOnAction((ActionEvent e) -> {
             //Call search function/ search logic here
 
-            String sql = "SELECT * FROM carservicedb.customers WHERE CUSTOMERID LIKE NULL OR FIRSTNAME LIKE ? AND LASTNAME LIKE ? AND ADDRESS LIKE ? AND PHONE LIKE ?;";
+            ResultSet rs;
             try {
-                //create statement 
-                PreparedStatement searchCustomer = database.prepareStatement(sql);
+                rs = searchCurrentEnteredCust();
 
-                //set variables
-                searchCustomer.setString(1, ui_first_name_field.getText() + '%');
-                searchCustomer.setString(2, ui_last_name_field.getText() + '%');
-                searchCustomer.setString(3, ui_address_field.getText() + '%');
-                searchCustomer.setString(4, ui_phone_field.getText() + '%');
-                //execute and grab result
-                ResultSet rs = searchCustomer.executeQuery();
                 //Clear table
                 list.clear();
 
@@ -94,26 +117,46 @@ public class MainWindowController implements Initializable {
                     System.out.println("No Customers Found");
                     JOptionPane.showMessageDialog(null, "Error No Customers found please check cust info", "Error: " + "No customers found", JOptionPane.ERROR_MESSAGE);
                 } else {
+                    updateCustList(rs);
 
-                    //Loop through returned results
-                    while (rs.next()) {
-                        //add found customer to list
-                        list.add(new Customer(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
-                    }
                 }
-                //Debug print all infor on customers
-                for (int i = 0; i < list.size(); i++) {
-                    list.get(i).printAll();
-                }
-
             } catch (SQLException ex) {
-                System.out.println(ex);
+                Logger.getLogger(MainWindowController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            //Debug print all infor on customers
+            for (int i = 0; i < list.size(); i++) {
+                list.get(i).printAll();
             }
 
         });
 
         ui_add_cust_btn.setOnAction((ActionEvent e) -> {
             //Call insert function/ insert logic here
+            try {
+                ResultSet rs = searchCurrentEnteredCust();
+                if (!rs.isBeforeFirst()) {
+                    //customer doesnt exist
+                    String sql = "INSERT INTO CUSTOMERS (FIRSTNAME,LASTNAME, ADDRESS,PHONE) VALUES (?,?,?,?);";
+
+                    PreparedStatement addCust = database.prepareStatement(sql);
+                    addCust.setString(1, ui_first_name_field.getText());
+                    addCust.setString(2, ui_lastName_column.getText());
+                    addCust.setString(3, ui_address_column.getText());
+                    addCust.setString(4, ui_phoneNum_column.getText());
+                    addCust.executeQuery();
+                }else{
+                    //There is a customer with some matching details
+                    //Check results and see if all details match if all details match do not allow adding customer
+                    //If first and last name match show error but allow 'overide' if some of the other details dont match.
+                    //if only first name or last name match (not both) then add customer
+                }
+                   
+
+
+            } catch (SQLException ex) {
+                System.out.println(ex);
+            }
         });
     }
 
