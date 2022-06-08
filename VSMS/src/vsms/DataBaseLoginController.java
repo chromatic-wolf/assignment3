@@ -49,7 +49,7 @@ public class DataBaseLoginController implements Initializable {
             //Creates a database connection object
             DataBaseManager database = new DataBaseManager();
             //Attempts to connect to the database, using default username for now maybe add ui component to change username later.
-            if (database.connect(ui_address_txt.getText(), ui_username_txt.getText(), ui_password_txt.getText(), "purchase")) {
+            if (database.connect(ui_address_txt.getText(), ui_username_txt.getText(), ui_password_txt.getText(), "carservicedb")) {
                 //Database connect
                 //Open next window
                 try {
