@@ -56,8 +56,13 @@ public class MainWindowController implements Initializable {
         this.database = database.getConnectionObject();
         //Set table to watch the list of customers
         ui_table.setItems(list);
-        
-        ui_firstName_column.setCellValueFactory(cellData -> cellData.getValue();
+
+        ui_customerid_column.setCellValueFactory(cellData -> cellData.getValue().customerID());
+        ui_firstName_column.setCellValueFactory(cellData -> cellData.getValue().firstName());
+        ui_lastName_column.setCellValueFactory(cellData -> cellData.getValue().lastName());
+        ui_address_column.setCellValueFactory(cellData -> cellData.getValue().address());
+        ui_phoneNum_column.setCellValueFactory(cellData -> cellData.getValue().phone());
+
     }
 
     @Override
