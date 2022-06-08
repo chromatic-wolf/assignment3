@@ -55,6 +55,8 @@
                         <Label layoutX="66.0" layoutY="482.0" text="Label" />
                         <Label layoutX="67.0" layoutY="521.0" text="Label" />
                         <Label layoutX="66.0" layoutY="563.0" text="Label" />
+                        <Button layoutX="68.0" layoutY="623.0" mnemonicParsing="false" text="Search Vehicle" />
+                        <Button layoutX="185.0" layoutY="623.0" mnemonicParsing="false" text="Add Vehicle" />
                      </children></AnchorPane>
             </content>
           </Tab>
