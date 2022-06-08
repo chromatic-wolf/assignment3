@@ -98,6 +98,17 @@ public class MainWindowController implements Initializable {
             list.add(new Customer(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
         }
     }
+    
+    boolean checkBlankFields()
+    {
+        if(ui_first_name_field.getText() == null || ui_first_name_field.getText() == "" || ui_lastName_column.getText() == null || ui_lastName_column.getText() == "" || ui_address_column.getText() == null || ui_address_column.getText() == "" || ui_phoneNum_column.getText() == null || ui_phoneNum_column.getText() == "")
+        {
+            return true;
+        }else
+        {
+            return false;
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -133,7 +144,13 @@ public class MainWindowController implements Initializable {
 
         ui_add_cust_btn.setOnAction((ActionEvent e) -> {
             //Call insert function/ insert logic here
-            try {
+            //first check if all info is entered
+            if(checkBlankFields())
+            {
+                JOptionPane.showMessageDialog(null, "Error please enter all fields", "Error: " + "Blank fields", JOptionPane.ERROR_MESSAGE);
+            }else
+            {
+                 try {
                 ResultSet rs = searchCurrentEnteredCust();
                 if (!rs.isBeforeFirst()) {
                     //customer doesnt exist
@@ -150,10 +167,17 @@ public class MainWindowController implements Initializable {
                     //Check results and see if all details match if all details match do not allow adding customer
                     //If first and last name match show error but allow 'overide' if some of the other details dont match.
                     //if only first name or last name match (not both) then add customer
+                    
+                    //Create a dummy customer using info entered
+                    Customer currentCust = new Customer(0, ui_first_name_field.getText(),ui_lastName_column.getText(),ui_address_column.getText(),ui_phoneNum_column.getText());
+                    
                     updateCustList(rs);
                     for(Customer E : list)
                     {
-                        
+                        if(E.compare(E))
+                        {
+                            
+                        }
                     }
                 }
                    
@@ -162,6 +186,9 @@ public class MainWindowController implements Initializable {
             } catch (SQLException ex) {
                 System.out.println(ex);
             }
+            }
+            
+           
         });
     }
 

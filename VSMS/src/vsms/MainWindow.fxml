@@ -9,16 +9,16 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="765.0" prefWidth="1233.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vsms.MainWindowController">
+<AnchorPane id="AnchorPane" prefHeight="840.0" prefWidth="1233.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vsms.MainWindowController">
    <children>
       <Label layoutX="544.0" layoutY="21.0" text="VSMS Management System" />
-      <TabPane layoutX="43.0" layoutY="70.0" prefHeight="601.0" prefWidth="1137.0" style="-fx-background-color: #b8b4a9;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="94.0" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="53.0" AnchorPane.topAnchor="70.0">
+      <TabPane layoutX="43.0" layoutY="70.0" prefHeight="728.0" prefWidth="1137.0" style="-fx-background-color: #b8b4a9;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="53.0" AnchorPane.topAnchor="70.0">
         <tabs>
           <Tab text="Customer">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="280.0" prefWidth="994.0" style="-fx-background-color: #bfbdb8;">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="653.0" prefWidth="1137.0" style="-fx-background-color: #bfbdb8;">
                      <children>
-                        <TableView fx:id="ui_table" layoutX="471.0" layoutY="119.0" prefHeight="334.0" prefWidth="583.0">
+                        <TableView fx:id="ui_table" layoutX="540.0" layoutY="11.0" prefHeight="334.0" prefWidth="583.0">
                           <columns>
                               <TableColumn fx:id="ui_customerid_column" prefWidth="75.0" text="CustomerID" />
                             <TableColumn fx:id="ui_firstName_column" prefWidth="156.0" text="FirstName" />
@@ -37,12 +37,25 @@
                         <TextField fx:id="ui_phone_field" layoutX="110.0" layoutY="186.0" />
                         <Button fx:id="ui_search_btn" layoutX="63.0" layoutY="233.0" mnemonicParsing="false" text="Search Customer" />
                         <Button fx:id="ui_add_cust_btn" layoutX="199.0" layoutY="233.0" mnemonicParsing="false" text="Add New Customer" />
+                        <TableView layoutX="540.0" layoutY="356.0" prefHeight="321.0" prefWidth="583.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="C1" />
+                            <TableColumn prefWidth="75.0" text="C2" />
+                          </columns>
+                        </TableView>
+                        <TextField layoutX="110.0" layoutY="356.0" />
+                        <Label layoutX="66.0" layoutY="360.0" text="Label" />
+                        <TextField layoutX="110.0" layoutY="400.0" />
+                        <Label layoutX="66.0" layoutY="404.0" text="Label" />
+                        <TextField layoutX="110.0" layoutY="441.0" />
+                        <TextField layoutX="110.0" layoutY="478.0" />
+                        <TextField layoutX="110.0" layoutY="517.0" />
+                        <TextField layoutX="110.0" layoutY="559.0" />
+                        <Label layoutX="67.0" layoutY="445.0" text="Label" />
+                        <Label layoutX="66.0" layoutY="482.0" text="Label" />
+                        <Label layoutX="67.0" layoutY="521.0" text="Label" />
+                        <Label layoutX="66.0" layoutY="563.0" text="Label" />
                      </children></AnchorPane>
-            </content>
-          </Tab>
-          <Tab text="Vehicles">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
             </content>
           </Tab>
           <Tab text="Services">
