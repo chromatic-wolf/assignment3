@@ -38,13 +38,15 @@ public class MainWindowController implements Initializable {
     @FXML
     TableView ui_table;
     @FXML
-    TableColumn ui_firstName_column;
+    TableColumn<Customer, Integer> ui_customerid_column;
     @FXML
-    TableColumn ui_lastName_column;
+    TableColumn<Customer, String> ui_firstName_column;
     @FXML
-    TableColumn ui_address_column;
+    TableColumn<Customer, String> ui_lastName_column;
     @FXML
-    TableColumn ui_phoneNum_column;
+    TableColumn<Customer, String> ui_address_column;
+    @FXML
+    TableColumn<Customer, String> ui_phoneNum_column;
 
     Connection database;
     ObservableList<Customer> list = FXCollections.observableArrayList();
@@ -54,6 +56,8 @@ public class MainWindowController implements Initializable {
         this.database = database.getConnectionObject();
         //Set table to watch the list of customers
         ui_table.setItems(list);
+        
+        ui_firstName_column.setCellValueFactory(cellData -> cellData.getValue();
     }
 
     @Override

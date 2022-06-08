@@ -20,6 +20,7 @@
                      <children>
                         <TableView fx:id="ui_table" layoutX="471.0" layoutY="119.0" prefHeight="334.0" prefWidth="583.0">
                           <columns>
+                              <TableColumn fx:id="ui_customerid_column" prefWidth="75.0" text="CustomerID" />
                             <TableColumn fx:id="ui_firstName_column" prefWidth="156.0" text="FirstName" />
                             <TableColumn fx:id="ui_lastName_column" prefWidth="109.0" text="LastName" />
                               <TableColumn fx:id="ui_address_column" prefWidth="113.0" text="Address" />
