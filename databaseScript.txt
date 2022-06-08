@@ -49,6 +49,13 @@ CREATE TABLE Services
 	FOREIGN KEY (REGISTRATION) REFERENCES Vehicles(REGISTRATION)
 );
 	
+INSERT INTO Services (DESCRIPTION, DATE, PRICE, REGISTRATION) VALUES
+('Engine rebuild', '14/12/2022', 6000, '160AP4'),
+('Oil Change', '9/6/2022', 20, 'SUN007'),
+('Head Gasket replacement', '11/6/2022', 400, '680TER'),
+('Re-tune', '17/6/2022', 900, '990LKM'),
+('Roll Cage Install', '22/7/2022', 200, '138AZT');
+
 
 
 
