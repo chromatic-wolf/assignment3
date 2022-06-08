@@ -59,6 +59,7 @@ public class MainWindowController implements Initializable {
         ui_table.setItems(list);
         list.clear();
 
+        //This section will bind the table columns to the data in the Customer class
         ui_customerid_column.setCellValueFactory(cellData -> cellData.getValue().customerID());
         ui_firstName_column.setCellValueFactory(cellData -> cellData.getValue().firstName());
         ui_lastName_column.setCellValueFactory(cellData -> cellData.getValue().lastName());
