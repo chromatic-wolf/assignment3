@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -84,6 +85,11 @@ public class MainWindowController implements Initializable {
                 ResultSet rs = searchCustomer.executeQuery();
                 //Clear table
                 list.clear();
+                if (!rs.isBeforeFirst()) {
+                    System.out.println("No Customers Found");
+                    JOptionPane.showMessageDialog(null, "Error No Customers found please check cust info", "Error: " + "No customers found", JOptionPane.ERROR_MESSAGE);
+                }
+
                 //Loop through returned results
                 while (rs.next()) {
                     //add found customer to list
