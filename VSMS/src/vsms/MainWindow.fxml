@@ -43,13 +43,13 @@
                             <TableColumn prefWidth="75.0" text="C2" />
                           </columns>
                         </TableView>
-                        <TextField layoutX="110.0" layoutY="356.0" />
+                        <TextField fx:id="ui_registration_field" layoutX="110.0" layoutY="356.0" />
                         <Label layoutX="37.0" layoutY="360.0" text="Regustration" />
-                        <TextField layoutX="109.0" layoutY="390.0" />
+                        <TextField fx:id="ui_make_field" layoutX="109.0" layoutY="390.0" />
                         <Label layoutX="50.0" layoutY="394.0" text="Make" />
-                        <TextField layoutX="108.0" layoutY="424.0" />
-                        <TextField layoutX="109.0" layoutY="457.0" />
-                        <TextField layoutX="108.0" layoutY="492.0" />
+                        <TextField fx:id="ui_model_field" layoutX="108.0" layoutY="424.0" />
+                        <TextField fx:id="ui_yeah_field" layoutX="109.0" layoutY="457.0" />
+                        <TextField fx:id="ui_kilometers_field" layoutX="108.0" layoutY="492.0" />
                         <Label layoutX="48.0" layoutY="428.0" text="Model" />
                         <Label layoutX="53.0" layoutY="461.0" text="Year" />
                         <Label layoutX="37.0" layoutY="496.0" text="Kilometers" />
