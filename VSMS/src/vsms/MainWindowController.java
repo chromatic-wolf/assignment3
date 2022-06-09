@@ -39,7 +39,7 @@ public class MainWindowController implements Initializable {
     @FXML
     Button ui_add_cust_btn;
     @FXML
-    TableView ui_table;
+    TableView ui_cust_table;
     @FXML
     TableColumn<Customer, Integer> ui_customerid_column;
     @FXML
@@ -51,13 +51,42 @@ public class MainWindowController implements Initializable {
     @FXML
     TableColumn<Customer, String> ui_phoneNum_column;
 
+    @FXML
+    TextField ui_registration_field;
+    @FXML
+    TextField ui_make_field;
+    @FXML
+    TextField ui_model_field;
+    @FXML
+    TextField ui_yeah_field;
+    @FXML
+    TextField ui_kilometers_field;
+    @FXML
+    TableView ui_vehicle_table;
+
+    @FXML
+    TableColumn<Vehicle, String> ui_registration_column;
+    @FXML
+    TableColumn<Vehicle, String> ui_make_column;
+    @FXML
+    TableColumn<Vehicle, String> ui_model_column;
+    @FXML
+    TableColumn<Vehicle, String> ui_year_column;
+    @FXML
+    TableColumn<Vehicle, String> ui_kilometers_column;
+
+    @FXML
+    Button ui_search_vehicle_btn;
+    @FXML
+    Button ui_add_vehicle_btn;
+
     Model model;
 
     public void initData(DataBaseManager database) {
         //Grab pure connection object from database manager
         model = new Model(database.getConnectionObject());
         //Set table to watch the list of customers
-        ui_table.setItems(model.getCustList());
+        ui_cust_table.setItems(model.getCustList());
 
         //This section will bind the table columns to the data in the Customer class
         ui_customerid_column.setCellValueFactory(cellData -> cellData.getValue().customerID());
