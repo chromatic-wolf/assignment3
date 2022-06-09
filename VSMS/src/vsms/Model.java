@@ -69,7 +69,7 @@ public class Model implements IModel {
         addCust.setString(2, cust.getLastName());
         addCust.setString(3, cust.getAddress());
         addCust.setString(4, cust.getPhone());
-        addCust.executeQuery();
+        addCust.executeUpdate();
     }
 
 }
