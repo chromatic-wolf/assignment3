@@ -73,7 +73,7 @@ public class MainWindowController implements Initializable {
     @FXML
     TableColumn<Vehicle, String> ui_year_column;
     @FXML
-    TableColumn<Vehicle, String> ui_kilometers_column;
+    TableColumn<Vehicle, Integer> ui_kilometers_column;
 
     @FXML
     Button ui_search_vehicle_btn;
