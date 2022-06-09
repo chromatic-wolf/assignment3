@@ -132,8 +132,8 @@ public class MainWindowController implements Initializable {
                         //If first and last name match show error but allow 'overide' if some of the other details dont match.
                         //if only first name or last name match (not both) then add customer
 
-                        int i = 0;
-                        while (i < list.size()) {
+                        for (int i = 0; i < list.size(); i++) {
+
                             if (list.get(i).compare(currentCust)) {
                                 JOptionPane.showMessageDialog(null, "Error Customer already exists, see table of custs.", "Error: " + "Duplicate cust", JOptionPane.ERROR_MESSAGE);
 
@@ -143,7 +143,7 @@ public class MainWindowController implements Initializable {
                             } else if (currentCust.getFirstName().equals(list.get(i).getFirstName()) && currentCust.getLastName().equals(list.get(i).getLastName())) {
                                 //First and last name exists display message box asking if customer still wants to add (overide)
                             }
-                            i++;
+
                         }
                     }
 
