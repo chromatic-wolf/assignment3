@@ -39,7 +39,7 @@ public class MainWindowController implements Initializable {
     @FXML
     Button ui_add_cust_btn;
     @FXML
-    TableView ui_cust_table;
+    TableView<Customer> ui_cust_table;
     @FXML
     TableColumn<Customer, Integer> ui_customerid_column;
     @FXML
@@ -62,7 +62,7 @@ public class MainWindowController implements Initializable {
     @FXML
     TextField ui_kilometers_field;
     @FXML
-    TableView ui_vehicle_table;
+    TableView<Vehicle> ui_vehicle_table;
 
     @FXML
     TableColumn<Vehicle, String> ui_registration_column;
@@ -79,6 +79,8 @@ public class MainWindowController implements Initializable {
     Button ui_search_vehicle_btn;
     @FXML
     Button ui_add_vehicle_btn;
+    @FXML
+    Button ui_view_selected_cust_vehicles_btn;
 
     Model model;
 
@@ -197,6 +199,23 @@ public class MainWindowController implements Initializable {
                 }
             }
 
+        });
+        
+        ui_view_selected_cust_vehicles_btn.setOnAction((ActionEvent e) -> {
+            //check if cust is selected
+            try {
+                model.searchVehicle(ui_cust_table.getSelectionModel().getSelectedItem().getCustomerID(), "", "", "", "", -1);
+                for (int i = 0; i < model.getVehicleList().size(); i++) {
+                model.getVehicleList().get(i).printAll();
+            }
+
+            } catch (SQLException ex) {
+                System.out.println(ex);
+            }
+        });
+
+        ui_search_vehicle_btn.setOnAction((ActionEvent e) -> {
+            
         });
     }
 }

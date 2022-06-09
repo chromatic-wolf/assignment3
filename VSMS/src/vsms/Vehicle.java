@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Vehicle {
+    private SimpleIntegerProperty vehicleID;
     private SimpleIntegerProperty customerid;
     private SimpleStringProperty rego;
     private SimpleStringProperty make;
@@ -12,7 +13,8 @@ public class Vehicle {
     private SimpleStringProperty manufactureYear;
     private SimpleIntegerProperty odometer;
 
-    public Vehicle(int customerid, String rego, String make, String model, String manufactureYear, int odometer) {
+    public Vehicle(int vehicleID, int customerid, String rego, String make, String model, String manufactureYear, int odometer) {
+        this.vehicleID = new SimpleIntegerProperty(vehicleID);
         this.customerid = new SimpleIntegerProperty(customerid);
         this.rego = new SimpleStringProperty(rego);
         this.make = new SimpleStringProperty(make);
@@ -21,6 +23,16 @@ public class Vehicle {
         this.odometer = new SimpleIntegerProperty(odometer);
     }
 
+    public int getVehicleID()
+    {
+        return vehicleID.get();
+    }
+    
+    public void setVehicleID(int id)
+    {
+        this.vehicleID = new SimpleIntegerProperty(id);
+    }
+    
     public int getCustomerid() {
         return customerid.get();
     }
@@ -69,7 +81,17 @@ public class Vehicle {
         this.odometer = new SimpleIntegerProperty(odometer);
     }
 
-
+public void printAll()
+{
+    System.out.println("----------Vehicle------------");
+        System.out.println("vehicleID:  " + vehicleID);
+        System.out.println("customerid:  " + customerid);
+        System.out.println("rego:  " + rego);
+        System.out.println("make:  " + make);
+        System.out.println("model:  " + model);
+        System.out.println("manufactureYear:  " + manufactureYear);
+        System.out.println("odometer:  " + odometer);
+}
 
 
 

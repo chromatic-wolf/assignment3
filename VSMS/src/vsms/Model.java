@@ -21,6 +21,7 @@ public class Model implements IModel {
 
     Connection database;
     private ObservableList<Customer> custList = FXCollections.observableArrayList();
+    private ObservableList<Vehicle> vehicleList = FXCollections.observableArrayList();
 
     Model(Connection database) {
         this.database = database;
@@ -36,6 +37,14 @@ public class Model implements IModel {
         while (rs.next()) {
             //add found customer to list
             custList.add(new Customer(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
+        }
+    }
+    
+    private void updateVehicleList(ResultSet rs) throws SQLException {
+        vehicleList.clear();
+        while (rs.next()) {
+            //add found customer to list
+            vehicleList.add(new Vehicle(rs.getInt(1), rs.getInt(7), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6)));
         }
     }
 
@@ -56,9 +65,34 @@ public class Model implements IModel {
         updateCustList(rs);
         return custList;
     }
+    
+        public ObservableList<Vehicle> searchVehicle(int customerid, String rego, String make, String model, String manufactureYear, int odometer) throws SQLException
+        {
+            String sql = "SELECT * FROM carservicedb.vehicles WHERE VEHICLEID LIKE NULL OR REGISTRATION LIKE ? AND MAKE LIKE ? AND MODEL LIKE ? AND YEAR LIKE ? AND KILOMETERS LIKE ? AND CUSTOMERID LIKE ?;";
+
+        //create statement 
+        PreparedStatement searchCustomer = database.prepareStatement(sql);
+
+        //set variables
+        searchCustomer.setString(1, rego + '%');
+        searchCustomer.setString(2, make + '%');
+        searchCustomer.setString(3, model + '%');
+        searchCustomer.setString(4, manufactureYear + '%');               
+        searchCustomer.setInt(6, customerid + '%');
+
+        //execute and grab result
+        ResultSet rs = searchCustomer.executeQuery();
+
+        updateVehicleList(rs);
+        return vehicleList;
+    }
 
     public ObservableList<Customer> getCustList() {
         return custList;
+    }
+
+    public ObservableList<Vehicle> getVehicleList() {
+        return vehicleList;
     }
 
     public void addCustomer(Customer cust) throws SQLException {
