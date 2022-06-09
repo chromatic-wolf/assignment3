@@ -25,7 +25,7 @@ public interface IModel {
     public void updateServiceBooking();
     public void deleteServiceBooking();
 
-
+    
     public List<ServiceBooking> getAllServiceBookings();
     public List<ServiceBooking> getServiceBookingByVR();
 
