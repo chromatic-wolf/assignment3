@@ -157,6 +157,7 @@ public class MainWindowController implements Initializable {
                             //customer doesnt exist
                             System.out.println("List empty adding cust");
                             model.addCustomer(currentCust);
+                            searchCurrentEnteredCust();
                             JOptionPane.showMessageDialog(null, "Added customer", "Added: " + "OK", JOptionPane.INFORMATION_MESSAGE);
                         }
 
