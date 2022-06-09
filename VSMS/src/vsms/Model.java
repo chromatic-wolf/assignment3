@@ -52,16 +52,9 @@ public class Model implements IModel {
         searchCustomer.setString(4, phone + '%');
         //execute and grab result
         ResultSet rs = searchCustomer.executeQuery();
-        if (!rs.isBeforeFirst()) {
-            //display error if no customers found
-            System.out.println("No Customers Found");
-            JOptionPane.showMessageDialog(null, "Error No Customers found please check cust info", "Error: " + "No customers found", JOptionPane.ERROR_MESSAGE);
-        } else {
-            updateCustList(rs);
-            return custList;
 
-        }
-        return null;
+        updateCustList(rs);
+        return custList;
     }
 
     public ObservableList<Customer> getCustList() {

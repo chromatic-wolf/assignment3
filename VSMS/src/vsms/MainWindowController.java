@@ -87,6 +87,7 @@ public class MainWindowController implements Initializable {
                 //Call search function/ search logic here
 
                 searchCurrentEnteredCust();
+
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Error sql error", "Error: " + "SQL error", JOptionPane.ERROR_MESSAGE);
             }
@@ -115,36 +116,50 @@ public class MainWindowController implements Initializable {
             } else {
                 try {
 
-                    searchCurrentEnteredCust();
+                    model.searchCust(ui_first_name_field.getText(), ui_last_name_field.getText(), "", "");
                     //Create a dummy customer using info entered
 
                     Customer currentCust = new Customer(0, ui_first_name_field.getText(), ui_last_name_field.getText(), ui_address_field.getText(), ui_phone_field.getText());
 
-                    ObservableList<Customer> list = model.getCustList();
-                    if (model.getCustList().isEmpty()) {
-                        //customer doesnt exist
-                        model.addCustomer(currentCust);
-                        JOptionPane.showMessageDialog(null, "Added customer", "Added: " + "OK", JOptionPane.INFORMATION_MESSAGE);
-
-                    } else {
-                        //There is a customer with some matching details
+                    //There is a customer with some matching details
+                    //If first and last name match show error but allow 'overide' if some of the other details dont match.
+                    //if only first name or last name match (not both) then add customer
+                    boolean custFound = false;
+                    for (int i = 0; i < model.getCustList().size(); i++) {
                         //Check results and see if all details match if all details match do not allow adding customer
-                        //If first and last name match show error but allow 'overide' if some of the other details dont match.
-                        //if only first name or last name match (not both) then add customer
+                        if (model.getCustList().get(i).compare(currentCust)) {
+                            JOptionPane.showMessageDialog(null, "Error Customer already exists, see table of custs.", "Error: " + "Duplicate cust", JOptionPane.ERROR_MESSAGE);
+                            custFound = true;
+                        } else if (model.getCustList().get(i).getCustomerID() == currentCust.getCustomerID()) {
+                            JOptionPane.showMessageDialog(null, "Error Customer ID already exists", "Error: " + "Duplicate cust", JOptionPane.ERROR_MESSAGE);
+                            custFound = true;
 
-                        for (int i = 0; i < list.size(); i++) {
+                        } else if (currentCust.getFirstName().equals(model.getCustList().get(i).getFirstName()) && currentCust.getLastName().equals(model.getCustList().get(i).getLastName())) {
 
-                            if (list.get(i).compare(currentCust)) {
-                                JOptionPane.showMessageDialog(null, "Error Customer already exists, see table of custs.", "Error: " + "Duplicate cust", JOptionPane.ERROR_MESSAGE);
+                            //First and last name exists display message box asking if customer still wants to add (overide)
+                            int option = JOptionPane.showOptionDialog(null, "Customer first and last name in system", "Name Match", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, null, null);
+                            //0 = yes 1 = no 2 = cancel
 
-                            } else if (list.get(i).getCustomerID() == currentCust.getCustomerID()) {
-                                JOptionPane.showMessageDialog(null, "Error Customer ID already exists", "Error: " + "Duplicate cust", JOptionPane.ERROR_MESSAGE);
-
-                            } else if (currentCust.getFirstName().equals(list.get(i).getFirstName()) && currentCust.getLastName().equals(list.get(i).getLastName())) {
-                                //First and last name exists display message box asking if customer still wants to add (overide)
+                            if (option == 0) {
+                                custFound = false;
+                            } else if (option == 1) {
+                                custFound = true;
+                            } else if (option == 2) {
+                                custFound = true;
                             }
 
                         }
+                       
+                    }
+                    searchCurrentEnteredCust();
+                    if (!custFound) {
+                        if (model.getCustList().isEmpty()) {
+                            //customer doesnt exist
+                            System.out.println("List empty adding cust");
+                            model.addCustomer(currentCust);
+                            JOptionPane.showMessageDialog(null, "Added customer", "Added: " + "OK", JOptionPane.INFORMATION_MESSAGE);
+                        }
+
                     }
 
                 } catch (SQLException ex) {
