@@ -22,11 +22,10 @@ public class Model implements IModel {
     Connection database;
     private ObservableList<Customer> custList = FXCollections.observableArrayList();
 
-    Model(Connection database)
-    {
+    Model(Connection database) {
         this.database = database;
     }
-    
+
     public void setDataBase(Connection database) {
         this.database = database;
     }
@@ -69,7 +68,7 @@ public class Model implements IModel {
         return custList;
     }
 
-    public void addCustomer(Customer cust) throws SQLException{
+    public void addCustomer(Customer cust) throws SQLException {
         String sql = "INSERT INTO CUSTOMERS (FIRSTNAME,LASTNAME, ADDRESS,PHONE) VALUES (?,?,?,?);";
 
         PreparedStatement addCust = database.prepareStatement(sql);
@@ -79,6 +78,5 @@ public class Model implements IModel {
         addCust.setString(4, cust.getPhone());
         addCust.executeQuery();
     }
-
 
 }
