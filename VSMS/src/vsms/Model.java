@@ -71,17 +71,20 @@ public class Model implements IModel {
             String sql = "SELECT * FROM carservicedb.vehicles WHERE VEHICLEID LIKE NULL OR REGISTRATION LIKE ? AND MAKE LIKE ? AND MODEL LIKE ? AND YEAR LIKE ? AND KILOMETERS LIKE ? AND CUSTOMERID LIKE ?;";
 
         //create statement 
-        PreparedStatement searchCustomer = database.prepareStatement(sql);
+            PreparedStatement searchCustomer = database.prepareStatement(sql);
 
-        //set variables
-        searchCustomer.setString(1, rego + '%');
-        searchCustomer.setString(2, make + '%');
-        searchCustomer.setString(3, model + '%');
-        searchCustomer.setString(4, manufactureYear + '%');               
-        searchCustomer.setInt(6, customerid + '%');
+            //set variables
+            searchCustomer.setString(1, rego + '%');
+            searchCustomer.setString(2, make + '%');
+            searchCustomer.setString(3, model + '%');
+            searchCustomer.setString(4, manufactureYear + '%');
 
-        //execute and grab result
-        ResultSet rs = searchCustomer.executeQuery();
+            searchCustomer.setInt(5, odometer + '%');
+
+            searchCustomer.setInt(6, customerid + '%');
+
+            //execute and grab result
+            ResultSet rs = searchCustomer.executeQuery();
 
         updateVehicleList(rs);
         return vehicleList;

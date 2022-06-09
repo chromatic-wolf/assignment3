@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import javafx.collections.ObservableList;
-import javafx.util.Pair;
 
 /**
  *
@@ -12,7 +11,7 @@ import javafx.util.Pair;
  */
 public interface IModel {
 
-    public void setDataBase(Connection database);
+        public void setDataBase(Connection database);
 
     public ObservableList<Customer> searchCust(String firstName, String lastName, String address, String phone) throws SQLException;
     
