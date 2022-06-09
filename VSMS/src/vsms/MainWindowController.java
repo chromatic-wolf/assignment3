@@ -39,7 +39,7 @@ public class MainWindowController implements Initializable {
     @FXML
     Button ui_add_cust_btn;
     @FXML
-    TableView ui_table;
+    TableView ui_cust_table;
     @FXML
     TableColumn<Customer, Integer> ui_customerid_column;
     @FXML
@@ -51,15 +51,42 @@ public class MainWindowController implements Initializable {
     @FXML
     TableColumn<Customer, String> ui_phoneNum_column;
 
-    Connection database;
-    ObservableList<Customer> list = FXCollections.observableArrayList();
+    @FXML
+    TextField ui_registration_field;
+    @FXML
+    TextField ui_make_field;
+    @FXML
+    TextField ui_model_field;
+    @FXML
+    TextField ui_yeah_field;
+    @FXML
+    TextField ui_kilometers_field;
+    @FXML
+    TableView ui_vehicle_table;
+
+    @FXML
+    TableColumn<Vehicle, String> ui_registration_column;
+    @FXML
+    TableColumn<Vehicle, String> ui_make_column;
+    @FXML
+    TableColumn<Vehicle, String> ui_model_column;
+    @FXML
+    TableColumn<Vehicle, String> ui_year_column;
+    @FXML
+    TableColumn<Vehicle, Integer> ui_kilometers_column;
+
+    @FXML
+    Button ui_search_vehicle_btn;
+    @FXML
+    Button ui_add_vehicle_btn;
+
+    Model model;
 
     public void initData(DataBaseManager database) {
         //Grab pure connection object from database manager
-        this.database = database.getConnectionObject();
+        model = new Model(database.getConnectionObject());
         //Set table to watch the list of customers
-        ui_table.setItems(list);
-        list.clear();
+        ui_cust_table.setItems(model.getCustList());
 
         //This section will bind the table columns to the data in the Customer class
         ui_customerid_column.setCellValueFactory(cellData -> cellData.getValue().customerID());
@@ -70,32 +97,8 @@ public class MainWindowController implements Initializable {
 
     }
 
-    ResultSet searchCust(String firstName, String lastName, String address, String phone) throws SQLException {
-        String sql = "SELECT * FROM carservicedb.customers WHERE CUSTOMERID LIKE NULL OR FIRSTNAME LIKE ? AND LASTNAME LIKE ? AND ADDRESS LIKE ? AND PHONE LIKE ?;";
-
-        //create statement 
-        PreparedStatement searchCustomer = database.prepareStatement(sql);
-
-        //set variables
-        searchCustomer.setString(1, firstName + '%');
-        searchCustomer.setString(2, lastName + '%');
-        searchCustomer.setString(3, address + '%');
-        searchCustomer.setString(4, phone + '%');
-        //execute and grab result
-        return searchCustomer.executeQuery();
-
-    }
-
-    ResultSet searchCurrentEnteredCust() throws SQLException {
-        return searchCust(ui_first_name_field.getText(), ui_last_name_field.getText(), ui_address_field.getText(), ui_phone_field.getText());
-    }
-
-    void updateCustList(ResultSet rs) throws SQLException {
-        //Loop through returned results
-        while (rs.next()) {
-            //add found customer to list
-            list.add(new Customer(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
-        }
+    void searchCurrentEnteredCust() throws SQLException {
+        model.searchCust(ui_first_name_field.getText(), ui_last_name_field.getText(), ui_address_field.getText(), ui_phone_field.getText());
     }
 
     boolean checkBlankFields() {
@@ -109,31 +112,26 @@ public class MainWindowController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ui_search_btn.setOnAction((ActionEvent e) -> {
-            //Call search function/ search logic here
-
-            ResultSet rs;
             try {
-                rs = searchCurrentEnteredCust();
+                //Call search function/ search logic here
 
-                //Clear table
-                list.clear();
+                searchCurrentEnteredCust();
 
-                //check if list is empty
-                if (!rs.isBeforeFirst()) {
-                    //display error if no customers found
-                    System.out.println("No Customers Found");
-                    JOptionPane.showMessageDialog(null, "Error No Customers found please check cust info", "Error: " + "No customers found", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    updateCustList(rs);
-
-                }
             } catch (SQLException ex) {
-                Logger.getLogger(MainWindowController.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Error sql error", "Error: " + "SQL error", JOptionPane.ERROR_MESSAGE);
+            }
+
+            //Clear table
+            //check if list is empty
+            if (model.getCustList().isEmpty()) {
+                //display error if no customers found
+                System.out.println("No Customers Found");
+                JOptionPane.showMessageDialog(null, "Error No Customers found please check cust info", "Error: " + "No customers found", JOptionPane.ERROR_MESSAGE);
             }
 
             //Debug print all infor on customers
-            for (int i = 0; i < list.size(); i++) {
-                list.get(i).printAll();
+            for (int i = 0; i < model.getCustList().size(); i++) {
+                model.getCustList().get(i).printAll();
             }
 
         });
@@ -141,47 +139,57 @@ public class MainWindowController implements Initializable {
         ui_add_cust_btn.setOnAction((ActionEvent e) -> {
             //Call insert function/ insert logic here
             //first check if all info is entered
+
             if (checkBlankFields()) {
                 JOptionPane.showMessageDialog(null, "Error please enter all fields", "Error: " + "Blank fields", JOptionPane.ERROR_MESSAGE);
             } else {
                 try {
-                    list.clear();
-                    ResultSet rs = searchCurrentEnteredCust();
-                    if (!rs.isBeforeFirst()) {
-                        //customer doesnt exist
-                        String sql = "INSERT INTO CUSTOMERS (FIRSTNAME,LASTNAME, ADDRESS,PHONE) VALUES (?,?,?,?);";
 
-                        PreparedStatement addCust = database.prepareStatement(sql);
-                        addCust.setString(1, ui_first_name_field.getText());
-                        addCust.setString(2, ui_last_name_field.getText());
-                        addCust.setString(3, ui_address_field.getText());
-                        addCust.setString(4, ui_phone_field.getText());
-                        addCust.executeQuery();
-                        JOptionPane.showMessageDialog(null, "Added customer", "Added: " + "OK", JOptionPane.INFORMATION_MESSAGE);
+                    model.searchCust(ui_first_name_field.getText(), ui_last_name_field.getText(), "", "");
+                    //Create a dummy customer using info entered
 
-                    } else {
-                        //There is a customer with some matching details
+                    Customer currentCust = new Customer(0, ui_first_name_field.getText(), ui_last_name_field.getText(), ui_address_field.getText(), ui_phone_field.getText());
+
+                    //There is a customer with some matching details
+                    //If first and last name match show error but allow 'overide' if some of the other details dont match.
+                    //if only first name or last name match (not both) then add customer
+                    boolean custFound = false;
+                    for (int i = 0; i < model.getCustList().size(); i++) {
                         //Check results and see if all details match if all details match do not allow adding customer
-                        //If first and last name match show error but allow 'overide' if some of the other details dont match.
-                        //if only first name or last name match (not both) then add customer
+                        if (model.getCustList().get(i).compare(currentCust)) {
+                            JOptionPane.showMessageDialog(null, "Error Customer already exists, see table of custs.", "Error: " + "Duplicate cust", JOptionPane.ERROR_MESSAGE);
+                            custFound = true;
+                        } else if (model.getCustList().get(i).getCustomerID() == currentCust.getCustomerID()) {
+                            JOptionPane.showMessageDialog(null, "Error Customer ID already exists", "Error: " + "Duplicate cust", JOptionPane.ERROR_MESSAGE);
+                            custFound = true;
 
-                        //Create a dummy customer using info entered
-                        Customer currentCust = new Customer(0, ui_first_name_field.getText(), ui_last_name_field.getText(), ui_address_field.getText(), ui_phone_field.getText());
+                        } else if (currentCust.getFirstName().equals(model.getCustList().get(i).getFirstName()) && currentCust.getLastName().equals(model.getCustList().get(i).getLastName())) {
 
-                        updateCustList(rs);
-                        int i = 0;
-                        while (i < list.size()) {
-                            if (list.get(i).compare(currentCust)) {
-                                JOptionPane.showMessageDialog(null, "Error Customer already exists, see table of custs.", "Error: " + "Duplicate cust", JOptionPane.ERROR_MESSAGE);
+                            //First and last name exists display message box asking if customer still wants to add (overide)
+                            int option = JOptionPane.showOptionDialog(null, "Customer first and last name in system", "Name Match", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, null, null);
+                            //0 = yes 1 = no 2 = cancel
 
-                            } else if (list.get(i).getCustomerID() == currentCust.getCustomerID()) {
-                                JOptionPane.showMessageDialog(null, "Error Customer ID already exists", "Error: " + "Duplicate cust", JOptionPane.ERROR_MESSAGE);
-
-                            } else if (currentCust.getFirstName().equals(list.get(i).getFirstName()) && currentCust.getLastName().equals(list.get(i).getLastName())) {
-                                //First and last name exists display message box asking if customer still wants to add (overide)
+                            if (option == 0) {
+                                custFound = false;
+                            } else if (option == 1) {
+                                custFound = true;
+                            } else if (option == 2) {
+                                custFound = true;
                             }
-                            i++;
+
                         }
+                       
+                    }
+                    searchCurrentEnteredCust();
+                    if (!custFound) {
+                        if (model.getCustList().isEmpty()) {
+                            //customer doesnt exist
+                            System.out.println("List empty adding cust");
+                            model.addCustomer(currentCust);
+                            searchCurrentEnteredCust();
+                            JOptionPane.showMessageDialog(null, "Added customer", "Added: " + "OK", JOptionPane.INFORMATION_MESSAGE);
+                        }
+
                     }
 
                 } catch (SQLException ex) {

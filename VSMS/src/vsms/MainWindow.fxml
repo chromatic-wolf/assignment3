@@ -37,24 +37,27 @@
                         <TextField fx:id="ui_phone_field" layoutX="110.0" layoutY="186.0" />
                         <Button fx:id="ui_search_btn" layoutX="63.0" layoutY="233.0" mnemonicParsing="false" text="Search Customer" />
                         <Button fx:id="ui_add_cust_btn" layoutX="199.0" layoutY="233.0" mnemonicParsing="false" text="Add New Customer" />
-                        <TableView layoutX="540.0" layoutY="356.0" prefHeight="321.0" prefWidth="583.0">
+                        <TableView fx:id="ui_vehicle_table" layoutX="540.0" layoutY="356.0" prefHeight="321.0" prefWidth="583.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="C1" />
-                            <TableColumn prefWidth="75.0" text="C2" />
+                            <TableColumn fx:id="ui_registration_column" prefWidth="75.0" text="Registration" />
+                            <TableColumn fx:id="ui_make_column" prefWidth="75.0" text="Make" />
+                              <TableColumn fx:id="ui_model_column" prefWidth="75.0" text="Model" />
+                              <TableColumn fx:id="ui_year_column" prefWidth="75.0" text="Year" />
+                              <TableColumn fx:id="ui_kilometers_column" prefWidth="75.0" text="Kilometers" />
                           </columns>
                         </TableView>
-                        <TextField layoutX="110.0" layoutY="356.0" />
-                        <Label layoutX="37.0" layoutY="360.0" text="Regustration" />
-                        <TextField layoutX="109.0" layoutY="390.0" />
+                        <TextField fx:id="ui_registration_field" layoutX="110.0" layoutY="356.0" />
+                        <Label layoutX="37.0" layoutY="360.0" text="Registration" />
+                        <TextField fx:id="ui_make_field" layoutX="109.0" layoutY="390.0" />
                         <Label layoutX="50.0" layoutY="394.0" text="Make" />
-                        <TextField layoutX="108.0" layoutY="424.0" />
-                        <TextField layoutX="109.0" layoutY="457.0" />
-                        <TextField layoutX="108.0" layoutY="492.0" />
+                        <TextField fx:id="ui_model_field" layoutX="108.0" layoutY="424.0" />
+                        <TextField fx:id="ui_yeah_field" layoutX="109.0" layoutY="457.0" />
+                        <TextField fx:id="ui_kilometers_field" layoutX="108.0" layoutY="492.0" />
                         <Label layoutX="48.0" layoutY="428.0" text="Model" />
                         <Label layoutX="53.0" layoutY="461.0" text="Year" />
                         <Label layoutX="37.0" layoutY="496.0" text="Kilometers" />
-                        <Button layoutX="48.0" layoutY="531.0" mnemonicParsing="false" text="Search Vehicle" />
-                        <Button layoutX="165.0" layoutY="531.0" mnemonicParsing="false" text="Add Vehicle" />
+                        <Button fx:id="ui_search_vehicle_btn" layoutX="48.0" layoutY="531.0" mnemonicParsing="false" text="Search Vehicle" />
+                        <Button fx:id="ui_add_vehicle_btn" layoutX="165.0" layoutY="531.0" mnemonicParsing="false" text="Add Vehicle" />
                      </children></AnchorPane>
             </content>
           </Tab>
