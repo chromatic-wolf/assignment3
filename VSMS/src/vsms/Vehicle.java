@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Vehicle {
+
     private SimpleIntegerProperty vehicleID;
     private SimpleIntegerProperty customerid;
     private SimpleStringProperty rego;
@@ -25,16 +26,14 @@ public class Vehicle {
         this.odometer = new SimpleIntegerProperty(odometer);
     }
 
-    public int getVehicleID()
-    {
+    public int getVehicleID() {
         return vehicleID.get();
     }
-    
-    public void setVehicleID(int id)
-    {
+
+    public void setVehicleID(int id) {
         this.vehicleID = new SimpleIntegerProperty(id);
     }
-    
+
     public int getCustomerid() {
         return customerid.get();
     }
@@ -82,36 +81,33 @@ public class Vehicle {
     public void setOdometer(int odometer) {
         this.odometer = new SimpleIntegerProperty(odometer);
     }
-    
 
-    
     public final ObjectProperty<Integer> vehicleID() {
         return new SimpleObjectProperty<Integer>(this.vehicleID.get());
     }
-    
+
     public final ObjectProperty<String> rego() {
         return new SimpleObjectProperty<String>(this.rego.get());
     }
-    
+
     public final ObjectProperty<String> make() {
         return new SimpleObjectProperty<String>(this.make.get());
     }
-    
+
     public final ObjectProperty<String> model() {
         return new SimpleObjectProperty<String>(this.model.get());
     }
-    
-     public final ObjectProperty<String> manufactureYear() {
+
+    public final ObjectProperty<String> manufactureYear() {
         return new SimpleObjectProperty<String>(this.manufactureYear.get());
     }
-     
-      public final ObjectProperty<Integer> odometer() {
+
+    public final ObjectProperty<Integer> odometer() {
         return new SimpleObjectProperty<Integer>(this.odometer.get());
     }
 
-public void printAll()
-{
-    System.out.println("----------Vehicle------------");
+    public void printAll() {
+        System.out.println("----------Vehicle------------");
         System.out.println("vehicleID:  " + vehicleID);
         System.out.println("customerid:  " + customerid);
         System.out.println("rego:  " + rego);
@@ -119,8 +115,6 @@ public void printAll()
         System.out.println("model:  " + model);
         System.out.println("manufactureYear:  " + manufactureYear);
         System.out.println("odometer:  " + odometer);
-}
-
-
+    }
 
 }

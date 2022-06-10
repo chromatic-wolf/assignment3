@@ -20,7 +20,7 @@ public interface IModel {
     public ObservableList<Vehicle> searchVehicle(int customerid, String rego, String make, String model, String manufactureYear, int odometer) throws SQLException;
 
     public ObservableList<Vehicle> searchVehicle(int customerID) throws SQLException;
-    
+
     public void addVehicle(Vehicle vehicle) throws SQLException;
 
     public ObservableList<Customer> getCustList();
