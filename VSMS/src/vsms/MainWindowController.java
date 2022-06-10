@@ -339,7 +339,7 @@ public class MainWindowController implements Initializable {
                     JOptionPane.showMessageDialog(null, "Error Please select a customer", "Error: " + "No cust selected", JOptionPane.ERROR_MESSAGE);
 
                 } else {
-                    controller.initData(ui_cust_table.getSelectionModel().getSelectedItem());
+                    controller.initData(ui_cust_table.getSelectionModel().getSelectedItem(), model);
                     stage.show();
                 }
 

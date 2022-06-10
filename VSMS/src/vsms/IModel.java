@@ -22,6 +22,8 @@ public interface IModel {
     public ObservableList<Vehicle> searchVehicle(int customerID) throws SQLException;
 
     public void addVehicle(Vehicle vehicle) throws SQLException;
+    
+    public void updateCustomer(Customer oldCust, Customer newCust) throws SQLException;
 
     public ObservableList<Customer> getCustList();
 

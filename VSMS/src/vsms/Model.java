@@ -69,6 +69,19 @@ public class Model implements IModel {
         return custList;
     }
 
+        public void updateCustomer(Customer oldCust, Customer newCust) throws SQLException
+        {
+            String sql = " UPDATE customers SET FIRSTNAME = ?, LASTNAME = ?, ADDRESS = ?, PHONE = ? WHERE CustomerID = ?;";
+            PreparedStatement updateCustomer = database.prepareStatement(sql);
+            updateCustomer.setString(1, newCust.getFirstName());
+            updateCustomer.setString(2, newCust.getLastName());
+            updateCustomer.setString(3, newCust.getAddress());
+            updateCustomer.setString(4, newCust.getPhone());
+            updateCustomer.setInt(5, oldCust.getCustomerID());
+            updateCustomer.executeUpdate();
+        }
+
+    
     public ObservableList<Vehicle> searchVehicle(int customerid, String rego, String make, String model, String manufactureYear, int odometer) throws SQLException {
         String sql = "SELECT * FROM carservicedb.vehicles WHERE VEHICLEID LIKE NULL OR REGISTRATION LIKE ? AND MAKE LIKE ? AND MODEL LIKE ? AND YEAR LIKE ? AND KILOMETERS LIKE ? AND CUSTOMERID LIKE ?;";
 
