@@ -100,7 +100,7 @@ public class Model implements IModel {
         updateVehicleList(rs);
         return vehicleList;
     }
-
+    
     public void addVehicle(Vehicle vehicle) throws SQLException {
         String sql = "INSERT INTO VEHICLES (REGISTRATION, MAKE, MODEL, YEAR, KILOMETERS, CUSTOMERID) VALUES (?,?,?,?,?,?);";
 
@@ -113,6 +113,7 @@ public class Model implements IModel {
         addVehicle.setInt(6, vehicle.getCustomerid());
         addVehicle.executeUpdate();
     }
+
 
     public ObservableList<Customer> getCustList() {
         return custList;

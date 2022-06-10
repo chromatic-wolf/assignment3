@@ -302,7 +302,7 @@ public class MainWindowController implements Initializable {
                 try {
                     model.addVehicle(new Vehicle(-1, ui_cust_table.getSelectionModel().getSelectedItem().getCustomerID(), ui_registration_field.getText(), ui_make_field.getText(), ui_model_field.getText(), ui_yeah_field.getText(), Integer.parseInt(ui_kilometers_field.getText())));
                 } catch (SQLException ex) {
-                    Logger.getLogger(MainWindowController.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Error Unable to add vehicle please check vehicle details", "Error: " + "Cannot add", JOptionPane.ERROR_MESSAGE);
 
                 } catch (java.lang.NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Error Please enter a valid number for vehicle kilometers", "Error: " + "Not number", JOptionPane.ERROR_MESSAGE);
