@@ -11,7 +11,9 @@ import javafx.collections.ObservableList;
  */
 public interface IModel {
 
-        public void setDataBase(Connection database);
+    public void setDataBase(Connection database);
+    
+    public int getidbyrego(String Rego) throws SQLException;
 
     public ObservableList<Customer> searchCust(String firstName, String lastName, String address, String phone) throws SQLException;
     

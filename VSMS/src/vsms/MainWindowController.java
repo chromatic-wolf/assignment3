@@ -1,21 +1,25 @@
 package vsms;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javax.swing.JOptionPane;
 
@@ -83,7 +87,40 @@ public class MainWindowController implements Initializable {
     Button ui_view_selected_cust_vehicles_btn;
 
     Model model;
+    @FXML
+    private Button btnaddService;
+    @FXML
+    private Button btnsearchservice;
+    @FXML
+    private Button btndeleteservice;
+    @FXML
+    private TextField txtrego;
+    @FXML
+    private DatePicker txtservicedate;
+    @FXML
+    private TextField txtprice;
+    @FXML
+    private TextArea txtdescription;
+    @FXML
+    private Button btndisplayall;
+    @FXML
+    private Button btnstatistics;
+    @FXML
+    private Button btnclear;
+    @FXML
+    private TextArea txtinfofield;
+    @FXML
+    private BarChart<String,Number> barchart;
+    @FXML
+    private TextField txtdeleteservice;
+    @FXML
+    private TextField txtsearch;
 
+    List<ServiceBooking> service;
+    int numberOfEnteries;
+    int currentEntryIndex;
+    ServiceBooking currentEntry;
+    XYChart.Series series1 = new XYChart.Series();
     public void initData(DataBaseManager database) {
         //Grab pure connection object from database manager
         model = new Model(database.getConnectionObject());
@@ -96,6 +133,8 @@ public class MainWindowController implements Initializable {
         ui_lastName_column.setCellValueFactory(cellData -> cellData.getValue().lastName());
         ui_address_column.setCellValueFactory(cellData -> cellData.getValue().address());
         ui_phoneNum_column.setCellValueFactory(cellData -> cellData.getValue().phone());
+        barchart.setAnimated(false);
+         
 
     }
 
@@ -180,7 +219,7 @@ public class MainWindowController implements Initializable {
                             }
 
                         }
-                       
+
                     }
                     searchCurrentEnteredCust();
                     if (!custFound) {
@@ -200,14 +239,14 @@ public class MainWindowController implements Initializable {
             }
 
         });
-        
+
         ui_view_selected_cust_vehicles_btn.setOnAction((ActionEvent e) -> {
             //check if cust is selected
             try {
                 model.searchVehicle(ui_cust_table.getSelectionModel().getSelectedItem().getCustomerID(), "", "", "", "", -1);
                 for (int i = 0; i < model.getVehicleList().size(); i++) {
-                model.getVehicleList().get(i).printAll();
-            }
+                    model.getVehicleList().get(i).printAll();
+                }
 
             } catch (SQLException ex) {
                 System.out.println(ex);
@@ -215,7 +254,136 @@ public class MainWindowController implements Initializable {
         });
 
         ui_search_vehicle_btn.setOnAction((ActionEvent e) -> {
-            
+
         });
     }
+
+    @FXML
+    private void addservice(ActionEvent event) {
+        try {
+
+            String Rego = txtrego.getText();
+            Date Date = java.sql.Date.valueOf(txtservicedate.getValue());
+            System.out.println(txtprice.toString());
+            int Price = Integer.parseInt(txtprice.getText());
+            String desc = txtdescription.getText();
+            int Vehicleid = model.getidbyrego(Rego);
+            System.out.println(Vehicleid);
+
+            if (Vehicleid > 0) {
+                model.addService(desc, Date, Price, Rego, Vehicleid);
+                JOptionPane.showMessageDialog(null, "Added Service", "Added: " + "OK", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Error Invalid Rego", "Error: " + "Invalid Rego", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Invalid Formatting", "Error: " + "Formatting", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+
+    }
+
+    @FXML
+    private void searchService(ActionEvent event) {
+        try {
+            String Rego = txtsearch.getText();
+            service = model.searchServices(Rego);
+
+            numberOfEnteries = service.size();
+            if (numberOfEnteries == 0) {
+                JOptionPane.showMessageDialog(null, "Enter a valid Rego with a service attached", "Error: " + "Formatting", JOptionPane.ERROR_MESSAGE);
+            }
+            if (numberOfEnteries != 0) {
+                currentEntryIndex = 0;
+                txtinfofield.clear();
+                while (currentEntryIndex < numberOfEnteries) {
+                    currentEntry = service.get(currentEntryIndex);
+                    txtinfofield.appendText(currentEntry.toString());
+                    currentEntryIndex += 1;
+                }
+
+            }
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void deleteService(ActionEvent event) {
+        try {
+            int id = Integer.parseInt(txtdeleteservice.getText());
+            model.removeService(id);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Enter a valid ID", "Error: " + "Formatting", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void displayall(ActionEvent event) {
+        try {
+            service = model.getAllServices();
+
+            numberOfEnteries = service.size();
+            if (numberOfEnteries == 0) {
+                JOptionPane.showMessageDialog(null, "DATABASE FOR SERVICES IS EMPTY", "Error: " + "DATABASE EMPTY", JOptionPane.ERROR_MESSAGE);
+                //This should ONLY HAPPEN IF THAT DATABASE IS EMPTY
+            }
+            if (numberOfEnteries != 0) {
+                currentEntryIndex = 0;
+                txtinfofield.clear();
+                while (currentEntryIndex < numberOfEnteries) {
+                    currentEntry = service.get(currentEntryIndex);
+                    txtinfofield.appendText(currentEntry.toString());
+                    currentEntryIndex += 1;
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void statistics(ActionEvent event) {
+        try {
+            txtinfofield.clear();
+            ArrayList<String> stats = new ArrayList<String>();
+            ArrayList<String> brandstats = new ArrayList<String>();
+            LinkedList<String> barstats = new LinkedList<String>();
+            stats = model.getstats();
+            txtinfofield.appendText(stats.toString());
+            txtinfofield.appendText("\n");
+            brandstats = model.getmakestats();
+            txtinfofield.appendText(brandstats.toString());
+            barstats = model.getbarstats();
+            
+            System.out.println(barstats.get(0));
+            System.out.println(barstats.get(2));
+            series1.setName("Top Car Brands");
+            series1.getData().add(new XYChart.Data(barstats.get(0),Integer.parseInt(barstats.get(1))));
+           series1.getData().add(new XYChart.Data(barstats.get(2),Integer.parseInt(barstats.get(3))));
+           series1.getData().add(new XYChart.Data(barstats.get(4),Integer.parseInt(barstats.get(5))));
+            barchart.getData().addAll(series1);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void clear(ActionEvent event) {
+        
+        txtrego.clear();
+        txtprice.clear();
+        txtdescription.clear();
+        txtsearch.clear();
+        txtdeleteservice.clear();
+        txtinfofield.clear();
+        barchart.getData().removeAll(series1);
+    }
+
 }
