@@ -43,12 +43,13 @@ public class UpdateCustController implements Initializable {
         }
     }
 
-    public void initFields(Customer cust) {
+    public void initData(Customer cust) {
         ui_first_name_field.setText(cust.getFirstName());
         ui_last_name_field.setText(cust.getLastName());
         ui_address_field.setText(cust.getAddress());
         ui_phone_field.setText(cust.getPhone());
     }
+
     /**
      * Initializes the controller class.
      */
@@ -63,9 +64,8 @@ public class UpdateCustController implements Initializable {
             if (checkCustBlankFields()) {
                 JOptionPane.showMessageDialog(null, "Error please fill in all info", "Error: " + "Blank fields", JOptionPane.ERROR_MESSAGE);
 
-            }else
-            {
-                
+            } else {
+
             }
         });
     }

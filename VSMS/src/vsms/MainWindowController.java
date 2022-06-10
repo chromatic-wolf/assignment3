@@ -1,5 +1,6 @@
 package vsms;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -12,7 +13,9 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -23,6 +26,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javax.swing.JOptionPane;
 
 /**
@@ -316,7 +321,33 @@ public class MainWindowController implements Initializable {
             }
 
         });
+        ui_update_cust_btn.setOnAction((ActionEvent e) -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource(
+                                "UpdateCust.fxml"
+                        )
+                );
 
+                Stage stage = new Stage(StageStyle.DECORATED);
+                stage.setScene(
+                        new Scene(loader.load())
+                );
+
+                UpdateCustController controller = loader.getController();
+                if (ui_cust_table.getSelectionModel().getSelectedItem() == null) {
+                    JOptionPane.showMessageDialog(null, "Error Please select a customer", "Error: " + "No cust selected", JOptionPane.ERROR_MESSAGE);
+
+                } else {
+                    controller.initData(ui_cust_table.getSelectionModel().getSelectedItem());
+                    stage.show();
+                }
+
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "FATAL Error, please check your java install", "InfoBox: " + "Error", JOptionPane.ERROR_MESSAGE);
+                System.out.println(ex);
+            }
+        });
     }
 
     @FXML
