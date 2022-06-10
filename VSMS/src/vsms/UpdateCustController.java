@@ -43,6 +43,12 @@ public class UpdateCustController implements Initializable {
         }
     }
 
+    public void initFields(Customer cust) {
+        ui_first_name_field.setText(cust.getFirstName());
+        ui_last_name_field.setText(cust.getLastName());
+        ui_address_field.setText(cust.getAddress());
+        ui_phone_field.setText(cust.getPhone());
+    }
     /**
      * Initializes the controller class.
      */
