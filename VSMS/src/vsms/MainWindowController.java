@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -164,6 +166,21 @@ public class MainWindowController implements Initializable {
         return false;
     }
 
+    boolean checkIfYear(String str) {
+        if (str.length() == 4) {
+
+            try {
+                Double.parseDouble(str);
+
+                return true;
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+        return false;
+
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ui_search_btn.setOnAction((ActionEvent e) -> {
@@ -273,15 +290,31 @@ public class MainWindowController implements Initializable {
 
         ui_add_vehicle_btn.setOnAction((ActionEvent e) -> {
             //Check if blank
-            if (checkVehicleBlankFields()) {
-                JOptionPane.showMessageDialog(null, "Error Please enter all fields", "Error: " + "Empty fields", JOptionPane.ERROR_MESSAGE);
-            } else {
-                System.out.println("not blank");
-            }
-            //Check if no customer is selected
             if (ui_cust_table.getSelectionModel().getSelectedItem() == null) {
                 JOptionPane.showMessageDialog(null, "Error Please select a customer", "Error: " + "No Cust Selected", JOptionPane.ERROR_MESSAGE);
+                //Check if no customer is selecte
+            } else if (checkVehicleBlankFields()) {
+                JOptionPane.showMessageDialog(null, "Error Please enter all fields", "Error: " + "Empty fields", JOptionPane.ERROR_MESSAGE);
+            } else if (!checkIfYear(ui_yeah_field.getText())) {
+                JOptionPane.showMessageDialog(null, "Please enter a valid model year", "Error: " + "Year error", JOptionPane.ERROR_MESSAGE);
+            } else {
+
+                try {
+                    model.addVehicle(new Vehicle(-1, ui_cust_table.getSelectionModel().getSelectedItem().getCustomerID(), ui_registration_field.getText(), ui_make_field.getText(), ui_model_field.getText(), ui_yeah_field.getText(), Integer.parseInt(ui_kilometers_field.getText())));
+                } catch (SQLException ex) {
+                    Logger.getLogger(MainWindowController.class.getName()).log(Level.SEVERE, null, ex);
+
+                } catch (java.lang.NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Error Please enter a valid number for vehicle kilometers", "Error: " + "Not number", JOptionPane.ERROR_MESSAGE);
+
+                }
             }
+            try {
+                model.searchVehicle(ui_cust_table.getSelectionModel().getSelectedItem().getCustomerID());
+            } catch (SQLException ex) {
+                Logger.getLogger(MainWindowController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         });
 
         ui_search_vehicle_btn.setOnAction((ActionEvent e) -> {

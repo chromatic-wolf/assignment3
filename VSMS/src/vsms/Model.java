@@ -100,6 +100,20 @@ public class Model implements IModel {
         updateVehicleList(rs);
         return vehicleList;
     }
+    
+    public void addVehicle(Vehicle vehicle) throws SQLException {
+        String sql = "INSERT INTO VEHICLES (REGISTRATION, MAKE, MODEL, YEAR, KILOMETERS, CUSTOMERID) VALUES (?,?,?,?,?,?);";
+
+        PreparedStatement addVehicle = database.prepareStatement(sql);
+        addVehicle.setString(1, vehicle.getRego());
+        addVehicle.setString(2, vehicle.getMake());
+        addVehicle.setString(3, vehicle.getModel());
+        addVehicle.setString(4, vehicle.getManufactureYear());
+        addVehicle.setInt(5, vehicle.getOdometer());
+        addVehicle.setInt(6, vehicle.getCustomerid());
+        addVehicle.executeUpdate();
+    }
+
 
     public ObservableList<Customer> getCustList() {
         return custList;
