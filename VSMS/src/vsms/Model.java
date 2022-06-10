@@ -73,21 +73,30 @@ public class Model implements IModel {
         String sql = "SELECT * FROM carservicedb.vehicles WHERE VEHICLEID LIKE NULL OR REGISTRATION LIKE ? AND MAKE LIKE ? AND MODEL LIKE ? AND YEAR LIKE ? AND KILOMETERS LIKE ? AND CUSTOMERID LIKE ?;";
 
         //create statement 
-        PreparedStatement searchCustomer = database.prepareStatement(sql);
+        PreparedStatement searchVehicles = database.prepareStatement(sql);
 
         //set variables
-        searchCustomer.setString(1, rego + '%');
-        searchCustomer.setString(2, make + '%');
-        searchCustomer.setString(3, model + '%');
-        searchCustomer.setString(4, manufactureYear + '%');
+        searchVehicles.setString(1, rego + '%');
+        searchVehicles.setString(2, make + '%');
+        searchVehicles.setString(3, model + '%');
+        searchVehicles.setString(4, manufactureYear + '%');
 
-        searchCustomer.setInt(5, odometer + '%');
+        searchVehicles.setInt(5, odometer + '%');
 
-        searchCustomer.setInt(6, customerid + '%');
+        searchVehicles.setInt(6, customerid + '%');
 
         //execute and grab result
-        ResultSet rs = searchCustomer.executeQuery();
+        ResultSet rs = searchVehicles.executeQuery();
 
+        updateVehicleList(rs);
+        return vehicleList;
+    }
+
+    public ObservableList<Vehicle> searchVehicle(int customerID) throws SQLException {
+        String sql = "SELECT * FROM carservicedb.vehicles WHERE CUSTOMERID LIKE ?;";
+        PreparedStatement searchVehicles = database.prepareStatement(sql);
+        searchVehicles.setInt(1, customerID);
+        ResultSet rs = searchVehicles.executeQuery();
         updateVehicleList(rs);
         return vehicleList;
     }
@@ -191,15 +200,15 @@ public class Model implements IModel {
         ResultSet results = getmakestats.executeQuery();
 
         while (results.next()) {
-            stats.add("Make: " + results.getString("MAKE")+"\n");
-            stats.add("Amount of Brand Serviced: " + results.getString("COUNT(*)")+"\n");
-          
+            stats.add("Make: " + results.getString("MAKE") + "\n");
+            stats.add("Amount of Brand Serviced: " + results.getString("COUNT(*)") + "\n");
 
         }
         results.close();
 
         return stats;
     }
+
     public LinkedList<String> getbarstats() throws SQLException {
         LinkedList<String> barstats = new LinkedList<String>();
         String sql = "SELECT  MAKE, COUNT(*) FROM vehicles as V, services as S WHERE S.VEHICLEID = V.VEHICLEID GROUP BY V.MAKE ORDER BY COUNT(*) desc LIMIT 3";
@@ -209,13 +218,13 @@ public class Model implements IModel {
         while (results.next()) {
             barstats.add(results.getString("MAKE"));
             barstats.add(results.getString("COUNT(*)"));
-          
 
         }
         results.close();
 
         return barstats;
     }
+
     public List<ServiceBooking> getAllServices() throws SQLException {
         String sql = "SELECT * FROM services";
         PreparedStatement getservices = database.prepareStatement(sql);

@@ -77,12 +77,12 @@ public class Customer {
         this.phone = new SimpleStringProperty(phone);
     }
 
+    //These functions will return the observable properties, this is needed so the table can bind to them and display
+    //when changes are made.
     public final ObjectProperty<Integer> customerID() {
         return new SimpleObjectProperty<>(this.customerID.get());
     }
 
-    //These functions will return the observable properties, this is needed so the table can bind to them and display
-    //when changes are made.
     public final ObjectProperty<String> firstName() {
         return new SimpleObjectProperty<>(this.firstName.get());
     }

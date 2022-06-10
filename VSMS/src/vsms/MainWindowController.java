@@ -29,7 +29,7 @@ import javax.swing.JOptionPane;
  * @author caleb
  */
 public class MainWindowController implements Initializable {
-
+    
     @FXML
     TextField ui_first_name_field;
     @FXML
@@ -54,7 +54,7 @@ public class MainWindowController implements Initializable {
     TableColumn<Customer, String> ui_address_column;
     @FXML
     TableColumn<Customer, String> ui_phoneNum_column;
-
+    
     @FXML
     TextField ui_registration_field;
     @FXML
@@ -67,7 +67,7 @@ public class MainWindowController implements Initializable {
     TextField ui_kilometers_field;
     @FXML
     TableView<Vehicle> ui_vehicle_table;
-
+    
     @FXML
     TableColumn<Vehicle, String> ui_registration_column;
     @FXML
@@ -78,14 +78,14 @@ public class MainWindowController implements Initializable {
     TableColumn<Vehicle, String> ui_year_column;
     @FXML
     TableColumn<Vehicle, Integer> ui_kilometers_column;
-
+    
     @FXML
     Button ui_search_vehicle_btn;
     @FXML
     Button ui_add_vehicle_btn;
     @FXML
     Button ui_view_selected_cust_vehicles_btn;
-
+    
     Model model;
     @FXML
     private Button btnaddService;
@@ -110,38 +110,44 @@ public class MainWindowController implements Initializable {
     @FXML
     private TextArea txtinfofield;
     @FXML
-    private BarChart<String,Number> barchart;
+    private BarChart<String, Number> barchart;
     @FXML
     private TextField txtdeleteservice;
     @FXML
     private TextField txtsearch;
-
+    
     List<ServiceBooking> service;
     int numberOfEnteries;
     int currentEntryIndex;
     ServiceBooking currentEntry;
     XYChart.Series series1 = new XYChart.Series();
+
     public void initData(DataBaseManager database) {
         //Grab pure connection object from database manager
         model = new Model(database.getConnectionObject());
         //Set table to watch the list of customers
         ui_cust_table.setItems(model.getCustList());
-
+        ui_vehicle_table.setItems(model.getVehicleList());
         //This section will bind the table columns to the data in the Customer class
         ui_customerid_column.setCellValueFactory(cellData -> cellData.getValue().customerID());
         ui_firstName_column.setCellValueFactory(cellData -> cellData.getValue().firstName());
         ui_lastName_column.setCellValueFactory(cellData -> cellData.getValue().lastName());
         ui_address_column.setCellValueFactory(cellData -> cellData.getValue().address());
         ui_phoneNum_column.setCellValueFactory(cellData -> cellData.getValue().phone());
+        
+        ui_registration_column.setCellValueFactory(cellData -> cellData.getValue().rego());
+        ui_make_column.setCellValueFactory(cellData -> cellData.getValue().make());
+        ui_model_column.setCellValueFactory(cellData -> cellData.getValue().model());
+        ui_year_column.setCellValueFactory(cellData -> cellData.getValue().manufactureYear());
+        ui_kilometers_column.setCellValueFactory(cellData -> cellData.getValue().odometer());
         barchart.setAnimated(false);
-         
-
+        
     }
-
+    
     void searchCurrentEnteredCust() throws SQLException {
         model.searchCust(ui_first_name_field.getText(), ui_last_name_field.getText(), ui_address_field.getText(), ui_phone_field.getText());
     }
-
+    
     boolean checkBlankFields() {
         if (ui_first_name_field.getText() == null || ui_first_name_field.getText().equals("") || ui_last_name_field.getText() == null || ui_last_name_field.getText().equals("") || ui_address_field.getText() == null || ui_address_field.getText().equals("") || ui_phone_field.getText() == null || ui_phone_field.getText().equals("")) {
             return true;
@@ -149,7 +155,7 @@ public class MainWindowController implements Initializable {
             return false;
         }
     }
-
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ui_search_btn.setOnAction((ActionEvent e) -> {
@@ -157,7 +163,7 @@ public class MainWindowController implements Initializable {
                 //Call search function/ search logic here
 
                 searchCurrentEnteredCust();
-
+                
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Error sql error", "Error: " + "SQL error", JOptionPane.ERROR_MESSAGE);
             }
@@ -174,9 +180,9 @@ public class MainWindowController implements Initializable {
             for (int i = 0; i < model.getCustList().size(); i++) {
                 model.getCustList().get(i).printAll();
             }
-
+            
         });
-
+        
         ui_add_cust_btn.setOnAction((ActionEvent e) -> {
             //Call insert function/ insert logic here
             //first check if all info is entered
@@ -185,7 +191,7 @@ public class MainWindowController implements Initializable {
                 JOptionPane.showMessageDialog(null, "Error please enter all fields", "Error: " + "Blank fields", JOptionPane.ERROR_MESSAGE);
             } else {
                 try {
-
+                    
                     model.searchCust(ui_first_name_field.getText(), ui_last_name_field.getText(), "", "");
                     //Create a dummy customer using info entered
 
@@ -203,7 +209,7 @@ public class MainWindowController implements Initializable {
                         } else if (model.getCustList().get(i).getCustomerID() == currentCust.getCustomerID()) {
                             JOptionPane.showMessageDialog(null, "Error Customer ID already exists", "Error: " + "Duplicate cust", JOptionPane.ERROR_MESSAGE);
                             custFound = true;
-
+                            
                         } else if (currentCust.getFirstName().equals(model.getCustList().get(i).getFirstName()) && currentCust.getLastName().equals(model.getCustList().get(i).getLastName())) {
 
                             //First and last name exists display message box asking if customer still wants to add (overide)
@@ -217,9 +223,9 @@ public class MainWindowController implements Initializable {
                             } else if (option == 2) {
                                 custFound = true;
                             }
-
+                            
                         }
-
+                        
                     }
                     searchCurrentEnteredCust();
                     if (!custFound) {
@@ -230,38 +236,38 @@ public class MainWindowController implements Initializable {
                             searchCurrentEnteredCust();
                             JOptionPane.showMessageDialog(null, "Added customer", "Added: " + "OK", JOptionPane.INFORMATION_MESSAGE);
                         }
-
+                        
                     }
-
+                    
                 } catch (SQLException ex) {
                     System.out.println(ex);
                 }
             }
-
+            
         });
-
+        
         ui_view_selected_cust_vehicles_btn.setOnAction((ActionEvent e) -> {
             //check if cust is selected
             try {
-                model.searchVehicle(ui_cust_table.getSelectionModel().getSelectedItem().getCustomerID(), "", "", "", "", -1);
+                model.searchVehicle(ui_cust_table.getSelectionModel().getSelectedItem().getCustomerID());
                 for (int i = 0; i < model.getVehicleList().size(); i++) {
                     model.getVehicleList().get(i).printAll();
                 }
-
+                
             } catch (SQLException ex) {
                 System.out.println(ex);
             }
         });
-
+        
         ui_search_vehicle_btn.setOnAction((ActionEvent e) -> {
-
+            
         });
     }
-
+    
     @FXML
     private void addservice(ActionEvent event) {
         try {
-
+            
             String Rego = txtrego.getText();
             Date Date = java.sql.Date.valueOf(txtservicedate.getValue());
             System.out.println(txtprice.toString());
@@ -269,27 +275,27 @@ public class MainWindowController implements Initializable {
             String desc = txtdescription.getText();
             int Vehicleid = model.getidbyrego(Rego);
             System.out.println(Vehicleid);
-
+            
             if (Vehicleid > 0) {
                 model.addService(desc, Date, Price, Rego, Vehicleid);
                 JOptionPane.showMessageDialog(null, "Added Service", "Added: " + "OK", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, "Error Invalid Rego", "Error: " + "Invalid Rego", JOptionPane.ERROR_MESSAGE);
             }
-
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Invalid Formatting", "Error: " + "Formatting", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
-
+        
     }
-
+    
     @FXML
     private void searchService(ActionEvent event) {
         try {
             String Rego = txtsearch.getText();
             service = model.searchServices(Rego);
-
+            
             numberOfEnteries = service.size();
             if (numberOfEnteries == 0) {
                 JOptionPane.showMessageDialog(null, "Enter a valid Rego with a service attached", "Error: " + "Formatting", JOptionPane.ERROR_MESSAGE);
@@ -302,31 +308,31 @@ public class MainWindowController implements Initializable {
                     txtinfofield.appendText(currentEntry.toString());
                     currentEntryIndex += 1;
                 }
-
+                
             }
         } catch (Exception e) {
-
+            
             e.printStackTrace();
         }
     }
-
+    
     @FXML
     private void deleteService(ActionEvent event) {
         try {
             int id = Integer.parseInt(txtdeleteservice.getText());
             model.removeService(id);
-
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Enter a valid ID", "Error: " + "Formatting", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
     }
-
+    
     @FXML
     private void displayall(ActionEvent event) {
         try {
             service = model.getAllServices();
-
+            
             numberOfEnteries = service.size();
             if (numberOfEnteries == 0) {
                 JOptionPane.showMessageDialog(null, "DATABASE FOR SERVICES IS EMPTY", "Error: " + "DATABASE EMPTY", JOptionPane.ERROR_MESSAGE);
@@ -340,13 +346,13 @@ public class MainWindowController implements Initializable {
                     txtinfofield.appendText(currentEntry.toString());
                     currentEntryIndex += 1;
                 }
-
+                
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
+    
     @FXML
     private void statistics(ActionEvent event) {
         try {
@@ -364,16 +370,16 @@ public class MainWindowController implements Initializable {
             System.out.println(barstats.get(0));
             System.out.println(barstats.get(2));
             series1.setName("Top Car Brands");
-            series1.getData().add(new XYChart.Data(barstats.get(0),Integer.parseInt(barstats.get(1))));
-           series1.getData().add(new XYChart.Data(barstats.get(2),Integer.parseInt(barstats.get(3))));
-           series1.getData().add(new XYChart.Data(barstats.get(4),Integer.parseInt(barstats.get(5))));
+            series1.getData().add(new XYChart.Data(barstats.get(0), Integer.parseInt(barstats.get(1))));
+            series1.getData().add(new XYChart.Data(barstats.get(2), Integer.parseInt(barstats.get(3))));
+            series1.getData().add(new XYChart.Data(barstats.get(4), Integer.parseInt(barstats.get(5))));
             barchart.getData().addAll(series1);
             
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
+    
     @FXML
     private void clear(ActionEvent event) {
         
@@ -385,5 +391,5 @@ public class MainWindowController implements Initializable {
         txtinfofield.clear();
         barchart.getData().removeAll(series1);
     }
-
+    
 }

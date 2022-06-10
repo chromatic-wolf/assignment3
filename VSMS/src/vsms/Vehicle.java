@@ -1,7 +1,9 @@
 package vsms;
 
 import java.sql.Date;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Vehicle {
@@ -79,6 +81,32 @@ public class Vehicle {
 
     public void setOdometer(int odometer) {
         this.odometer = new SimpleIntegerProperty(odometer);
+    }
+    
+
+    
+    public final ObjectProperty<Integer> vehicleID() {
+        return new SimpleObjectProperty<Integer>(this.vehicleID.get());
+    }
+    
+    public final ObjectProperty<String> rego() {
+        return new SimpleObjectProperty<String>(this.rego.get());
+    }
+    
+    public final ObjectProperty<String> make() {
+        return new SimpleObjectProperty<String>(this.make.get());
+    }
+    
+    public final ObjectProperty<String> model() {
+        return new SimpleObjectProperty<String>(this.model.get());
+    }
+    
+     public final ObjectProperty<String> manufactureYear() {
+        return new SimpleObjectProperty<String>(this.manufactureYear.get());
+    }
+     
+      public final ObjectProperty<Integer> odometer() {
+        return new SimpleObjectProperty<Integer>(this.odometer.get());
     }
 
 public void printAll()
