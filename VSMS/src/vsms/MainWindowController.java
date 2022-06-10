@@ -45,6 +45,8 @@ public class MainWindowController implements Initializable {
     @FXML
     Button ui_add_cust_btn;
     @FXML
+    Button ui_update_cust_btn;
+    @FXML
     TableView<Customer> ui_cust_table;
     @FXML
     TableColumn<Customer, Integer> ui_customerid_column;
