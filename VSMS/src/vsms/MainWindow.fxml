@@ -14,7 +14,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="840.0" prefWidth="1233.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vsms.MainWindowController">
+<AnchorPane id="AnchorPane" prefHeight="840.0" prefWidth="1233.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vsms.MainWindowController">
    <children>
       <Label layoutX="544.0" layoutY="21.0" text="VSMS Management System" />
       <TabPane layoutX="43.0" layoutY="70.0" prefHeight="728.0" prefWidth="1137.0" style="-fx-background-color: #b8b4a9;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="53.0" AnchorPane.topAnchor="70.0">
@@ -61,7 +61,6 @@
                         <Label layoutX="48.0" layoutY="428.0" text="Model" />
                         <Label layoutX="53.0" layoutY="461.0" text="Year" />
                         <Label layoutX="37.0" layoutY="496.0" text="Kilometers" />
-                        <Button fx:id="ui_search_vehicle_btn" layoutX="48.0" layoutY="531.0" mnemonicParsing="false" text="Search Vehicle" />
                         <Button fx:id="ui_add_vehicle_btn" layoutX="165.0" layoutY="531.0" mnemonicParsing="false" text="Add Vehicle" />
                         <Button fx:id="ui_view_selected_cust_vehicles_btn" layoutX="404.0" layoutY="135.0" mnemonicParsing="false" prefHeight="87.0" prefWidth="113.0" text="View Selected Cust Vehicles" wrapText="true" />
                      </children></AnchorPane>

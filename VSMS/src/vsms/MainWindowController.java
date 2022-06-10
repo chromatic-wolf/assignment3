@@ -82,8 +82,6 @@ public class MainWindowController implements Initializable {
     TableColumn<Vehicle, Integer> ui_kilometers_column;
 
     @FXML
-    Button ui_search_vehicle_btn;
-    @FXML
     Button ui_add_vehicle_btn;
     @FXML
     Button ui_view_selected_cust_vehicles_btn;
@@ -317,9 +315,6 @@ public class MainWindowController implements Initializable {
 
         });
 
-        ui_search_vehicle_btn.setOnAction((ActionEvent e) -> {
-
-        });
     }
 
     @FXML
