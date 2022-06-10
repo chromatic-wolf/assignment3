@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="840.0" prefWidth="1233.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vsms.MainWindowController">
+<AnchorPane id="AnchorPane" prefHeight="840.0" prefWidth="1233.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vsms.MainWindowController">
    <children>
       <Label layoutX="544.0" layoutY="21.0" text="VSMS Management System" />
       <TabPane layoutX="43.0" layoutY="70.0" prefHeight="728.0" prefWidth="1137.0" style="-fx-background-color: #b8b4a9;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="53.0" AnchorPane.topAnchor="70.0">
@@ -64,7 +69,34 @@
           </Tab>
           <Tab text="Services">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #c9c8c5;" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #c9c8c5;">
+                     <children>
+                        <Button fx:id="btnaddService" layoutX="415.0" layoutY="149.0" mnemonicParsing="false" onAction="#addservice" text="Add Service" />
+                        <Button fx:id="btnsearchservice" layoutX="33.0" layoutY="325.0" mnemonicParsing="false" onAction="#searchService" text="Search Service" />
+                        <Button fx:id="btndeleteservice" layoutX="314.0" layoutY="325.0" mnemonicParsing="false" onAction="#deleteService" text="Delete Service" />
+                        <Label layoutX="64.0" layoutY="100.0" text="Rego No" />
+                        <Label layoutX="41.0" layoutY="127.0" text="Service Date" />
+                        <Label layoutX="78.0" layoutY="153.0" text="Price" />
+                        <Label layoutX="43.0" layoutY="178.0" text="Description" />
+                        <TextField fx:id="txtrego" layoutX="118.0" layoutY="96.0" />
+                        <DatePicker fx:id="txtservicedate" layoutX="118.0" layoutY="123.0" />
+                        <TextField fx:id="txtprice" layoutX="118.0" layoutY="149.0" />
+                        <TextArea fx:id="txtdescription" layoutX="118.0" layoutY="178.0" prefHeight="117.0" prefWidth="377.0" />
+                        <Button fx:id="btndisplayall" layoutX="382.0" layoutY="640.0" mnemonicParsing="false" onAction="#displayall" text="Display All" />
+                        <Button fx:id="btnstatistics" layoutX="462.0" layoutY="640.0" mnemonicParsing="false" onAction="#statistics" prefHeight="25.0" prefWidth="184.0" text="Statistics" />
+                        <Button fx:id="btnclear" layoutX="648.0" layoutY="640.0" mnemonicParsing="false" onAction="#clear" prefHeight="25.0" prefWidth="126.0" text="Clear all fields" />
+                        <TextArea fx:id="txtinfofield" editable="false" layoutX="29.0" layoutY="356.0" prefHeight="284.0" prefWidth="1082.0" />
+                        <BarChart fx:id="barchart" layoutX="554.0" layoutY="13.0" prefHeight="314.0" prefWidth="537.0" title="Top Brands">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </BarChart>
+                        <TextField fx:id="txtdeleteservice" layoutX="405.0" layoutY="325.0" promptText="Insert Service ID here" />
+                        <TextField fx:id="txtsearch" layoutX="125.0" layoutY="325.0" promptText="Insert Rego here" />
+                     </children></AnchorPane>
             </content>
           </Tab>
         </tabs>
